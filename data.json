@@ -1,0 +1,409 @@
+{
+  "connected": true,
+  "timestamp": "14-Nov-2026 03:27:14 AM",
+  "summary": {
+    "total_liquidity": 57209.05,
+    "total_bank": 57209.05,
+    "total_cash": 0.0,
+    "total_loans": 0,
+    "net_position": 57209.05,
+    "bank_count": 12,
+    "loan_count": 0
+  },
+  "banks": [
+    {
+      "name": "Slice - Interest A/c",
+      "group": "Bank Accounts",
+      "category": "Bank Account",
+      "acc_no": "",
+      "ifsc": "NESF0000333",
+      "opening": 122.39,
+      "net_change": 59847.09,
+      "closing": 59969.48
+    },
+    {
+      "name": "HDFC Bank 4227 - Salary A/c",
+      "group": "Bank Accounts",
+      "category": "Bank Account",
+      "acc_no": "",
+      "ifsc": "HDFC0001219",
+      "opening": 7859.0,
+      "net_change": -7449.0,
+      "closing": 410.0
+    },
+    {
+      "name": "Punjab National Bank - Joint A/c",
+      "group": "Bank Accounts",
+      "category": "Bank Account",
+      "acc_no": "",
+      "ifsc": "PUNB0694800",
+      "opening": 484.76,
+      "net_change": -86.43,
+      "closing": 398.33
+    },
+    {
+      "name": "IDFC First Bank - Recurring A/c",
+      "group": "Bank Accounts",
+      "category": "Bank Account",
+      "acc_no": "",
+      "ifsc": "IDFB0060119",
+      "opening": 108.53,
+      "net_change": 140.27,
+      "closing": 248.8
+    },
+    {
+      "name": "State Bank of India - Cash A/c",
+      "group": "Bank Accounts",
+      "category": "Bank Account",
+      "acc_no": "",
+      "ifsc": "SBIN0005602",
+      "opening": 15.26,
+      "net_change": 79.51,
+      "closing": 94.77
+    },
+    {
+      "name": "Axis Bank",
+      "group": "Bank Accounts",
+      "category": "Bank Account",
+      "acc_no": "",
+      "ifsc": "",
+      "opening": -0.0,
+      "net_change": 0.0,
+      "closing": -0.0
+    },
+    {
+      "name": "Cash",
+      "group": "Cash-in-hand",
+      "category": "Cash-in-Hand",
+      "acc_no": "",
+      "ifsc": "",
+      "opening": -0.0,
+      "net_change": 0.0,
+      "closing": -0.0
+    },
+    {
+      "name": "Fincare Small Finance Bank",
+      "group": "Bank Accounts",
+      "category": "Bank Account",
+      "acc_no": "",
+      "ifsc": "",
+      "opening": -0.0,
+      "net_change": 0.0,
+      "closing": -0.0
+    },
+    {
+      "name": "Funds Needs to Arrange",
+      "group": "Cash-in-hand",
+      "category": "Cash-in-Hand",
+      "acc_no": "",
+      "ifsc": "",
+      "opening": -0.0,
+      "net_change": 0.0,
+      "closing": -0.0
+    },
+    {
+      "name": "Indusind Bank - Business A/c",
+      "group": "Bank Accounts",
+      "category": "Bank Account",
+      "acc_no": "",
+      "ifsc": "INDB0000872",
+      "opening": -0.0,
+      "net_change": 0.0,
+      "closing": -0.0
+    },
+    {
+      "name": "Jio Payments Bank",
+      "group": "Bank Accounts",
+      "category": "Bank Account",
+      "acc_no": "",
+      "ifsc": "JIOP0000001",
+      "opening": -0.0,
+      "net_change": 0.0,
+      "closing": -0.0
+    },
+    {
+      "name": "HDFC Bank 7764 - Investment A/c",
+      "group": "Bank Accounts",
+      "category": "Bank Account",
+      "acc_no": "",
+      "ifsc": "HDFC0001923",
+      "opening": 1322.15,
+      "net_change": -5234.48,
+      "closing": -3912.33
+    }
+  ],
+  "loans": [],
+  "ledger_txns": {
+    "Slice - Interest A/c": [
+      {
+        "date": "8-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Bank Interest",
+        "debit": 0.15,
+        "credit": 0.0
+      },
+      {
+        "date": "7-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Loan From Shreya Deb",
+        "debit": 0.0,
+        "credit": 20000.0
+      },
+      {
+        "date": "7-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Loan From Tapas Mondal",
+        "debit": 20000.0,
+        "credit": 0.0
+      },
+      {
+        "date": "7-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Bank Interest",
+        "debit": 0.15,
+        "credit": 0.0
+      },
+      {
+        "date": "6-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Rentomojo Limited",
+        "debit": 0.0,
+        "credit": 466.0
+      },
+      {
+        "date": "6-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Bank Interest",
+        "debit": 0.22,
+        "credit": 0.0
+      },
+      {
+        "date": "5-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Loan From Tapas Mondal",
+        "debit": 0.0,
+        "credit": 20000.0
+      },
+      {
+        "date": "5-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Loan From Shreya Deb",
+        "debit": 20000.0,
+        "credit": 0.0
+      },
+      {
+        "date": "5-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Bank Interest",
+        "debit": 0.22,
+        "credit": 0.0
+      },
+      {
+        "date": "4-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Printing & Stationery",
+        "debit": 0.0,
+        "credit": 25.0
+      },
+      {
+        "date": "4-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Bank Interest",
+        "debit": 0.22,
+        "credit": 0.0
+      },
+      {
+        "date": "3-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Food Expense - Jaipur",
+        "debit": 0.0,
+        "credit": 60.0
+      },
+      {
+        "date": "3-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Bank Interest",
+        "debit": 0.23,
+        "credit": 0.0
+      },
+      {
+        "date": "2-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Bank Interest",
+        "debit": 0.23,
+        "credit": 0.0
+      },
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Fd at Slice",
+        "debit": 0.0,
+        "credit": 1000.0
+      },
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Miscellaneous Incomes",
+        "debit": 1.0,
+        "credit": 0.0
+      },
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Slice Credit Card 5262",
+        "debit": 0.0,
+        "credit": 8260.97
+      },
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "CRED Wallet",
+        "debit": 10000.0,
+        "credit": 0.0
+      },
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Miscellaneous Incomes",
+        "debit": 1.0,
+        "credit": 0.0
+      },
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Miscellaneous Incomes",
+        "debit": 1.0,
+        "credit": 0.0
+      },
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Rent Expense - Jaipur",
+        "debit": 0.0,
+        "credit": 400.0
+      },
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Rent Expense - Jaipur",
+        "debit": 0.0,
+        "credit": 150.0
+      },
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Rent Expense - Jaipur",
+        "debit": 0.0,
+        "credit": 4300.0
+      },
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Bank Interest",
+        "debit": 0.85,
+        "credit": 0.0
+      }
+    ],
+    "HDFC Bank 4227 - Salary A/c": [
+      {
+        "date": "7-Nov-26",
+        "vch_type": "Ctra",
+        "particulars": "HDFC Loan Payable",
+        "debit": 0.0,
+        "credit": 7792.0
+      }
+    ],
+    "Punjab National Bank - Joint A/c": [
+      {
+        "date": "17-Apr-26",
+        "vch_type": "Rcpt",
+        "particulars": "Subsidy",
+        "debit": 19.57,
+        "credit": 0.0
+      },
+      {
+        "date": "6-Apr-26",
+        "vch_type": "Pymt",
+        "particulars": "Flipkart",
+        "debit": 0.0,
+        "credit": 106.0
+      }
+    ],
+    "IDFC First Bank - Recurring A/c": [
+      {
+        "date": "12-Oct-26",
+        "vch_type": "Pymt",
+        "particulars": "Nippon India Mutual Fund",
+        "debit": 0.0,
+        "credit": 100.0
+      },
+      {
+        "date": "5-Oct-26",
+        "vch_type": "Rcpt",
+        "particulars": "Miscellaneous Expenses",
+        "debit": 0.01,
+        "credit": 0.0
+      },
+      {
+        "date": "4-Oct-26",
+        "vch_type": "Pymt",
+        "particulars": "IDFC RD No. 10276038582",
+        "debit": 0.0,
+        "credit": 100.0
+      }
+    ],
+    "State Bank of India - Cash A/c": [
+      {
+        "date": "16-May-26",
+        "vch_type": "Rcpt",
+        "particulars": "Zerodha Broking Ltd",
+        "debit": 40.53,
+        "credit": 0.0
+      }
+    ],
+    "Axis Bank": [],
+    "Cash": [
+      {
+        "date": "26-Jul-26",
+        "vch_type": "Rcpt",
+        "particulars": "Rent Expense - Jaipur",
+        "debit": 500.0,
+        "credit": 0.0
+      },
+      {
+        "date": "18-Jul-26",
+        "vch_type": "Pymt",
+        "particulars": "House Expenses - Kolkata",
+        "debit": 0.0,
+        "credit": 500.0
+      }
+    ],
+    "Fincare Small Finance Bank": [],
+    "Funds Needs to Arrange": [],
+    "Indusind Bank - Business A/c": [],
+    "Jio Payments Bank": [],
+    "HDFC Bank 7764 - Investment A/c": [
+      {
+        "date": "5-Nov-26",
+        "vch_type": "Ctra",
+        "particulars": "APY Payable",
+        "debit": 0.0,
+        "credit": 318.0
+      },
+      {
+        "date": "4-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Bank Fees and Charges",
+        "debit": 0.0,
+        "credit": 553.39
+      },
+      {
+        "date": "2-Nov-26",
+        "vch_type": "Ctra",
+        "particulars": "Groww Loan Payable",
+        "debit": 0.0,
+        "credit": 5177.0
+      }
+    ]
+  }
+}
