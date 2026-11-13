@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Treasury & Debt Monitor — TallyPrime</title>
+<style>
+  :root {
+    --bg: #0b0f19;
+    --card: #111827;
+    --card-hover: #172033;
+    --border: #1f2937;
+    --text: #f3f4f6;
+    --muted: #9ca3af;
+    --accent: #3b82f6;
+    --green: #10b981;
+    --green-bg: rgba(16, 185, 129, 0.12);
+    --red: #ef4444;
+    --red-bg: rgba(239, 68, 68, 0.12);
+    --amber: #f59e0b;
+    --amber-bg: rgba(245, 158, 11, 0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif; }
+  body { background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 48px; }
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(11, 15, 25, 0.9); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-logo {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, #2563eb, #10b981);
+    display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; color: #fff;
+  }
+  .brand h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+  .brand p { font-size: 12px; color: var(--muted); }
+  .controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .live-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 600;
+    background: var(--green-bg); color: var(--green); border: 1px solid rgba(16,185,129,0.25);
+  }
+  .live-pill.offline { background: var(--red-bg); color: var(--red); border-color: rgba(239,68,68,0.25); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+  .btn {
+    background: var(--card); color: var(--text); border: 1px solid var(--border);
+    padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.15s;
+  }
+  .btn:hover { background: var(--card-hover); border-color: #374151; }
+  .btn.active { background: rgba(59,130,246,0.18); border-color: var(--accent); color: #93c5fd; }
+  .container { max-width: 1380px; margin: 24px auto; padding: 0 24px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .kpi-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px;
+    transition: transform 0.15s, border-color 0.15s;
+  }
+  .kpi-card:hover { border-color: #374151; transform: translateY(-1px); }
+  .kpi-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
+  .kpi-val { font-size: 26px; font-weight: 800; margin: 8px 0 6px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .kpi-sub { font-size: 12px; color: var(--muted); }
+  .pos { color: var(--green); }
+  .neg { color: var(--red); }
+  .warn { color: var(--amber); }
+  .split-bar-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 24px; }
+  .split-header { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px; color: var(--muted); }
+  .bar-track { height: 10px; background: #1f2937; border-radius: 999px; overflow: hidden; display: flex; }
+  .bar-bank { background: linear-gradient(90deg, #10b981, #3b82f6); transition: width 0.4s ease; }
+  .bar-loan { background: linear-gradient(90deg, #f59e0b, #ef4444); transition: width 0.4s ease; }
+  .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 1024px) { .main-grid { grid-template-columns: 1fr; } }
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .panel-head {
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  }
+  .panel-title { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .badge { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: 600; }
+  .badge-green { background: var(--green-bg); color: var(--green); }
+  .badge-red { background: var(--red-bg); color: var(--red); }
+  .badge-amber { background: var(--amber-bg); color: var(--amber); }
+  .search-inp {
+    background: #0b0f19; border: 1px solid var(--border); color: var(--text);
+    padding: 6px 12px; border-radius: 8px; font-size: 12px; outline: none; width: 190px;
+  }
+  .search-inp:focus { border-color: var(--accent); }
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--muted); padding: 11px 16px; border-bottom: 1px solid var(--border); background: rgba(15,23,42,0.5);
+  }
+  th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td { padding: 13px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  tr.clickable { cursor: pointer; transition: background 0.12s; }
+  tr.clickable:hover { background: var(--card-hover); }
+  .ledger-name { font-weight: 600; color: #f9fafb; }
+  .ledger-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .empty-msg { padding: 32px; text-align: center; color: var(--muted); font-size: 13px; }
+
+  /* Drawer Modal */
+  .drawer-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 50; display: none; justify-content: flex-end;
+  }
+  .drawer-backdrop.open { display: flex; }
+  .drawer {
+    width: 100%; max-width: 620px; background: #111827; border-left: 1px solid var(--border);
+    height: 100%; display: flex; flex-direction: column; animation: slideIn 0.2s ease;
+  }
+  @keyframes slideIn { from { transform: translateX(30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+  .drawer-head { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .drawer-body { padding: 16px 20px; overflow-y: auto; flex: 1; }
+</style>
+</head>
+<body>
+<div id="pinGate" style="position:fixed;inset:0;background:#0b0f19;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#111827;border:1px solid #1f2937;border-radius:16px;padding:32px;max-width:360px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.6);">
+    <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#10b981);display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;color:#fff;margin-bottom:14px;">₹</div>
+    <h2 style="font-size:18px;margin-bottom:6px;color:#f3f4f6;">TrackByTarun • Live Treasury</h2>
+    <p style="font-size:12px;color:#9ca3af;margin-bottom:20px;">Enter Access PIN to view live Tally Bank & Loan data</p>
+    <input id="pinInput" type="password" placeholder="Enter PIN (2026)" onkeydown="if(event.key==='Enter')unlockDash()" style="width:100%;padding:11px 14px;border-radius:10px;border:1px solid #374151;background:#0b0f19;color:#fff;font-size:15px;text-align:center;letter-spacing:4px;outline:none;margin-bottom:12px;">
+    <button onclick="unlockDash()" style="width:100%;padding:11px;border-radius:10px;border:none;background:#2563eb;color:#fff;font-weight:700;font-size:13px;cursor:pointer;">Unlock Live Monitor</button>
+    <p id="pinErr" style="color:#ef4444;font-size:12px;margin-top:10px;display:none;">Incorrect PIN. Try again.</p>
+  </div>
+</div>
+<script>
+  const DASH_PIN = "2026";
+  if (sessionStorage.getItem("tbt_unlocked") === "1") {
+    document.getElementById("pinGate").style.display = "none";
+  }
+  function unlockDash() {
+    if (document.getElementById("pinInput").value === DASH_PIN) {
+      sessionStorage.setItem("tbt_unlocked", "1");
+      document.getElementById("pinGate").style.display = "none";
+    } else {
+      document.getElementById("pinErr").style.display = "block";
+    }
+  }
+</script>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-logo">₹</div>
+    <div>
+      <h1>TrackByTarun — Treasury & Debt Live Monitor</h1>
+      <p id="syncTime">Connecting to TallyPrime (localhost:9000)...</p>
+    </div>
+  </div>
+  <div class="controls">
+    <div id="liveBadge" class="live-pill"><span class="dot"></span><span id="liveText">CLOUD SNAPSHOT • Auto-Synced</span></div>
+    <button id="unitToggle" class="btn" onclick="toggleUnits()">Format: Exact ₹</button>
+    <button id="pauseBtn" class="btn" onclick="togglePause()">Pause Auto-Sync</button>
+    <button class="btn active" onclick="fetchTreasury()">Refresh Now</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Total Bank & Cash Liquidity</div>
+      <div id="kpiLiquidity" class="kpi-val pos">₹0.00</div>
+      <div id="kpiLiquiditySub" class="kpi-sub">Banks: ₹0 | Cash: ₹0</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Total Loans & Debt Liability</div>
+      <div id="kpiLoans" class="kpi-val neg">₹0.00</div>
+      <div id="kpiLoansSub" class="kpi-sub">0 active loan facilities</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Net Liquidity Position</div>
+      <div id="kpiNet" class="kpi-val">₹0.00</div>
+      <div id="kpiNetSub" class="kpi-sub">Available Liquidity minus Total Loans</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Debt-to-Liquidity Coverage</div>
+      <div id="kpiRatio" class="kpi-val warn">0.0%</div>
+      <div id="kpiRatioSub" class="kpi-sub">Cash & Bank cover against total debt</div>
+    </div>
+  </div>
+
+  <div class="split-bar-wrap">
+    <div class="split-header">
+      <span>Liquidity vs. Loan Exposure</span>
+      <span id="splitText">Liquidity 0% • Debt 0%</span>
+    </div>
+    <div class="bar-track">
+      <div id="barBank" class="bar-bank" style="width:50%"></div>
+      <div id="barLoan" class="bar-loan" style="width:50%"></div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <!-- BANKS PANEL -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">Bank Accounts & Liquidity <span id="bankCountBadge" class="badge badge-green">0</span></div>
+        <input id="bankSearch" class="search-inp" placeholder="Search bank / A/c no..." oninput="renderTables()">
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Bank / Account Details</th>
+              <th class="num">Opening</th>
+              <th class="num">FY Change</th>
+              <th class="num">Live Balance</th>
+            </tr>
+          </thead>
+          <tbody id="bankTableBody">
+            <tr><td colspan="4" class="empty-msg">Loading live bank balances...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LOANS PANEL -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">Loans & Debt Facilities <span id="loanCountBadge" class="badge badge-red">0</span></div>
+        <input id="loanSearch" class="search-inp" placeholder="Search lender / loan type..." oninput="renderTables()">
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Lender / Loan Facility</th>
+              <th class="num">Opening</th>
+              <th class="num">Net Change</th>
+              <th class="num">Outstanding</th>
+            </tr>
+          </thead>
+          <tbody id="loanTableBody">
+            <tr><td colspan="4" class="empty-msg">Loading live loan balances...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DRILLDOWN DRAWER -->
+<div id="drawerBackdrop" class="drawer-backdrop" onclick="closeDrawer(event)">
+  <div class="drawer" onclick="event.stopPropagation()">
+    <div class="drawer-head">
+      <div>
+        <h3 id="drawerTitle" style="font-size:16px;">Ledger Statement</h3>
+        <p id="drawerSub" style="font-size:12px; color:var(--muted); margin-top:3px;">Recent Live Vouchers from TallyPrime</p>
+      </div>
+      <button class="btn" onclick="document.getElementById('drawerBackdrop').classList.remove('open')">Close ✕</button>
+    </div>
+    <div class="drawer-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Particulars / Type</th>
+            <th class="num">Debit (₹)</th>
+            <th class="num">Credit (₹)</th>
+          </tr>
+        </thead>
+        <tbody id="drawerBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+let cachedData = null;
+let compactMode = false;
+let isPaused = false;
+
+function fmtINR(num) {
+  const n = Number(num || 0);
+  const sign = n < 0 ? "-" : "";
+  const abs = Math.abs(n);
+  if (compactMode) {
+    if (abs >= 10000000) return sign + "₹" + (abs / 10000000).toFixed(2) + " Cr";
+    if (abs >= 100000) return sign + "₹" + (abs / 100000).toFixed(2) + " L";
+  }
+  return sign + "₹" + abs.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function toggleUnits() {
+  compactMode = !compactMode;
+  document.getElementById("unitToggle").innerText = compactMode ? "Format: Lakhs/Cr" : "Format: Exact ₹";
+  if (cachedData) renderAll(cachedData);
+}
+
+function togglePause() {
+  isPaused = !isPaused;
+  const btn = document.getElementById("pauseBtn");
+  btn.innerText = isPaused ? "Resume Auto-Sync" : "Pause Auto-Sync";
+  btn.classList.toggle("active", isPaused);
+  document.getElementById("liveText").innerText = isPaused ? "PAUSED" : "CLOUD SNAPSHOT • Auto-Synced";
+}
+
+function renderAll(data) {
+  const s = data.summary;
+  document.getElementById("kpiLiquidity").innerText = fmtINR(s.total_liquidity);
+  document.getElementById("kpiLiquiditySub").innerText = `Banks: ${fmtINR(s.total_bank)} • Cash: ${fmtINR(s.total_cash)}`;
+  document.getElementById("kpiLoans").innerText = fmtINR(s.total_loans);
+  document.getElementById("kpiLoansSub").innerText = `${s.loan_count} active loan / OD facilities`;
+
+  const netEl = document.getElementById("kpiNet");
+  netEl.innerText = fmtINR(s.net_position);
+  netEl.className = "kpi-val " + (s.net_position >= 0 ? "pos" : "neg");
+
+  const cov = s.total_loans > 0 ? ((s.total_liquidity / s.total_loans) * 100) : 100;
+  document.getElementById("kpiRatio").innerText = cov.toFixed(1) + "%";
+
+  const totalVol = Math.max(s.total_liquidity + s.total_loans, 1);
+  const bankPct = ((s.total_liquidity / totalVol) * 100).toFixed(1);
+  const loanPct = ((s.total_loans / totalVol) * 100).toFixed(1);
+  document.getElementById("barBank").style.width = bankPct + "%";
+  document.getElementById("barLoan").style.width = loanPct + "%";
+  document.getElementById("splitText").innerText = `Liquidity ${bankPct}% • Debt ${loanPct}%`;
+
+  renderTables();
+}
+
+function renderTables() {
+  if (!cachedData) return;
+  const bQuery = document.getElementById("bankSearch").value.toLowerCase();
+  const lQuery = document.getElementById("loanSearch").value.toLowerCase();
+
+  const banks = cachedData.banks.filter(b =>
+    b.name.toLowerCase().includes(bQuery) || (b.acc_no || "").toLowerCase().includes(bQuery) || b.group.toLowerCase().includes(bQuery)
+  );
+  const loans = cachedData.loans.filter(l =>
+    l.name.toLowerCase().includes(lQuery) || l.loan_type.toLowerCase().includes(lQuery) || l.group.toLowerCase().includes(lQuery)
+  );
+
+  document.getElementById("bankCountBadge").innerText = banks.length;
+  document.getElementById("loanCountBadge").innerText = loans.length;
+
+  const bBody = document.getElementById("bankTableBody");
+  if (!banks.length) {
+    bBody.innerHTML = `<tr><td colspan="4" class="empty-msg">No matching bank or cash accounts found.</td></tr>`;
+  } else {
+    bBody.innerHTML = banks.map(b => {
+      const chgClass = b.net_change >= 0 ? "pos" : "neg";
+      const chgSign = b.net_change > 0 ? "+" : "";
+      const meta = [b.category, b.acc_no ? `A/c: ${b.acc_no}` : "", b.ifsc ? `IFSC: ${b.ifsc}` : ""].filter(Boolean).join(" • ");
+      return `<tr class="clickable" onclick="openLedgerDrawer('${b.name.replace(/'/g, "\'")}', '${meta.replace(/'/g, "\'")}')">
+        <td><div class="ledger-name">${b.name}</div><div class="ledger-meta">${meta}</div></td>
+        <td class="num">${fmtINR(b.opening)}</td>
+        <td class="num ${chgClass}">${chgSign}${fmtINR(b.net_change)}</td>
+        <td class="num" style="font-weight:700;">${fmtINR(b.closing)}</td>
+      </tr>`;
+    }).join("");
+  }
+
+  const lBody = document.getElementById("loanTableBody");
+  if (!loans.length) {
+    lBody.innerHTML = `<tr><td colspan="4" class="empty-msg">No active loans found in TallyPrime.</td></tr>`;
+  } else {
+    lBody.innerHTML = loans.map(l => {
+      const badgeCls = l.loan_type.includes("Secured") ? "badge-amber" : "badge-red";
+      const chgClass = l.net_change <= 0 ? "pos" : "neg";
+      const chgSign = l.net_change > 0 ? "+" : "";
+      return `<tr class="clickable" onclick="openLedgerDrawer('${l.name.replace(/'/g, "\'")}', '${l.loan_type} • ${l.group}')">
+        <td><div class="ledger-name">${l.name}</div><div class="ledger-meta"><span class="badge ${badgeCls}">${l.loan_type}</span> &nbsp;${l.group}</div></td>
+        <td class="num">${fmtINR(l.opening)}</td>
+        <td class="num ${chgClass}">${chgSign}${fmtINR(l.net_change)}</td>
+        <td class="num neg" style="font-weight:700;">${fmtINR(l.closing)}</td>
+      </tr>`;
+    }).join("");
+  }
+}
+
+async function openLedgerDrawer(ledgerName, subtitle) {
+  document.getElementById("drawerTitle").innerText = ledgerName;
+  document.getElementById("drawerSub").innerText = subtitle + " • Fetching live vouchers...";
+  document.getElementById("drawerBody").innerHTML = `<tr><td colspan="4" class="empty-msg">Loading transactions from Tally...</td></tr>`;
+  document.getElementById("drawerBackdrop").classList.add("open");
+
+  try {
+    const isCloud = !location.hostname.includes("127.0.0.1") && !location.hostname.includes("localhost");
+    let data = { txns: [] };
+    if (isCloud && cachedData && cachedData.ledger_txns) {
+      data.txns = cachedData.ledger_txns[ledgerName] || [];
+    } else {
+      const res = await fetch("/api/ledger-txns?name=" + encodeURIComponent(ledgerName));
+      data = await res.json();
+    }
+    document.getElementById("drawerSub").innerText = subtitle + ` • Showing latest ${data.txns.length} vouchers`;
+    if (!data.txns.length) {
+      document.getElementById("drawerBody").innerHTML = `<tr><td colspan="4" class="empty-msg">No vouchers recorded in current period.</td></tr>`;
+      return;
+    }
+    document.getElementById("drawerBody").innerHTML = data.txns.map(t => `
+      <tr>
+        <td style="white-space:nowrap; color:var(--muted);">${t.date}</td>
+        <td><div class="ledger-name">${t.particulars}</div><div class="ledger-meta">${t.vch_type}</div></td>
+        <td class="num pos">${t.debit > 0 ? fmtINR(t.debit) : "-"}</td>
+        <td class="num neg">${t.credit > 0 ? fmtINR(t.credit) : "-"}</td>
+      </tr>
+    `).join("");
+  } catch (e) {
+    document.getElementById("drawerBody").innerHTML = `<tr><td colspan="4" class="empty-msg">Error fetching vouchers.</td></tr>`;
+  }
+}
+
+function closeDrawer(e) {
+  if (e.target.id === "drawerBackdrop") document.getElementById("drawerBackdrop").classList.remove("open");
+}
+
+async function fetchTreasury() {
+  try {
+    const isCloud = !location.hostname.includes("127.0.0.1") && !location.hostname.includes("localhost"); const res = await fetch(isCloud ? "./data.json?t=" + Date.now() : "/api/live-treasury");
+    const data = await res.json();
+    const badge = document.getElementById("liveBadge");
+    if (data.connected) {
+      cachedData = data;
+      localStorage.setItem("tally_treasury_cache", JSON.stringify(data));
+      badge.classList.remove("offline");
+      if (!isPaused) document.getElementById("liveText").innerText = "CLOUD SNAPSHOT • Auto-Synced";
+      document.getElementById("syncTime").innerText = `Last Tally Sync: ${data.timestamp}`;
+      renderAll(data);
+    } else {
+      badge.classList.add("offline");
+      document.getElementById("liveText").innerText = "Tally Offline • Retrying";
+      document.getElementById("syncTime").innerText = `Open TallyPrime (Port 9000) for live updates • Last check: ${data.timestamp}`;
+    }
+  } catch (err) {
+    document.getElementById("liveBadge").classList.add("offline");
+    document.getElementById("liveText").innerText = "Bridge Offline";
+  }
+}
+
+// Load cached snapshot instantly while first live poll runs
+const saved = localStorage.getItem("tally_treasury_cache");
+if (saved) {
+  try { cachedData = JSON.parse(saved); renderAll(cachedData); } catch (e) {}
+}
+fetchTreasury();
+setInterval(() => { if (!isPaused) fetchTreasury(); }, 5000);
+</script>
+</body>
+</html>
