@@ -224,10 +224,11 @@
         <table>
           <thead>
             <tr>
-              <th>Lender / Loan Facility</th>
+              <th>Category / Ledger Name</th>
               <th class="num">Opening</th>
-              <th class="num">Net Change</th>
-              <th class="num">Outstanding</th>
+              <th class="num">Debit (Paid)</th>
+              <th class="num">Credit (Billed)</th>
+              <th class="num">Closing (Due)</th>
             </tr>
           </thead>
           <tbody id="loanTableBody">
@@ -353,17 +354,20 @@ function renderTables() {
 
   const lBody = document.getElementById("loanTableBody");
   if (!loans.length) {
-    lBody.innerHTML = `<tr><td colspan="4" class="empty-msg">No active loans found in TallyPrime.</td></tr>`;
+    lBody.innerHTML = `<tr><td colspan="5" class="empty-msg">No active loans found in TallyPrime.</td></tr>`;
   } else {
     lBody.innerHTML = loans.map(l => {
       const badgeCls = l.loan_type.includes("Secured") ? "badge-amber" : "badge-red";
       const chgClass = l.net_change <= 0 ? "pos" : "neg";
       const chgSign = l.net_change > 0 ? "+" : "";
+      const paidVal = l.debit_paid !== undefined ? l.debit_paid : 0;
+      const billedVal = l.credit_billed !== undefined ? l.credit_billed : 0;
       return `<tr class="clickable" onclick="openLedgerDrawer('${l.name.replace(/'/g, "\'")}', '${l.loan_type} • ${l.group}')">
-        <td><div class="ledger-name">${l.name}</div><div class="ledger-meta"><span class="badge ${badgeCls}">${l.loan_type}</span> &nbsp;${l.group}</div></td>
+        <td><div class="ledger-name">${l.name}</div><div class="ledger-meta"><span class="badge ${badgeCls}">${l.loan_type}</span></div></td>
         <td class="num">${fmtINR(l.opening)}</td>
-        <td class="num ${chgClass}">${chgSign}${fmtINR(l.net_change)}</td>
-        <td class="num neg" style="font-weight:700;">${fmtINR(l.closing)}</td>
+        <td class="num pos">${fmtINR(paidVal)}</td>
+        <td class="num">${fmtINR(billedVal)}</td>
+        <td class="num ${l.closing > 0 ? 'neg' : ''}" style="font-weight:700;">${fmtINR(l.closing)}</td>
       </tr>`;
     }).join("");
   }
