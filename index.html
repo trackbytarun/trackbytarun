@@ -178,11 +178,11 @@
   </div>
 </div>
 <script>
-  const DASH_PIN = "2026";
-  if (sessionStorage.getItem("tbt_unlocked") === "1") document.getElementById("pinGate").style.display = "none";
+  const DASH_PIN = "9903";
+  if (sessionStorage.getItem("tbt_unlocked_9903") === "1") document.getElementById("pinGate").style.display = "none";
   function unlockDash() {
     if (document.getElementById("pinInput").value === DASH_PIN) {
-      sessionStorage.setItem("tbt_unlocked", "1");
+      sessionStorage.setItem("tbt_unlocked_9903", "1");
       document.getElementById("pinGate").style.display = "none";
     } else {
       document.getElementById("pinErr").style.display = "block";
@@ -345,7 +345,13 @@ function selectMonth(key) {
 }
 
 function renderDashboard() {
-  if (!rootData || !rootData.months) return;
+  if (!rootData) return;
+  if (!rootData.months) {
+    const fbKey = rootData.default_month || "2026-11";
+    rootData.default_month = fbKey;
+    rootData.month_list = rootData.month_list || [{ key: fbKey, short: "Now", label: "Current Period" }];
+    rootData.months = { [fbKey]: { summary: rootData.summary || {}, banks: rootData.banks || [], loans: rootData.loans || [] } };
+  }
   const mList = rootData.month_list || [];
   if (!selectedMonthKey || !rootData.months[selectedMonthKey]) {
     selectedMonthKey = rootData.default_month || (mList[0] ? mList[0].key : "");
