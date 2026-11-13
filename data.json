@@ -1,14 +1,14 @@
 {
   "connected": true,
-  "timestamp": "14-Nov-2026 03:27:34 AM",
+  "timestamp": "14-Nov-2026 03:31:20 AM",
   "summary": {
     "total_liquidity": 57209.05,
     "total_bank": 57209.05,
     "total_cash": 0.0,
-    "total_loans": 0,
-    "net_position": 57209.05,
+    "total_loans": 134966.11,
+    "net_position": -77757.06,
     "bank_count": 12,
-    "loan_count": 0
+    "loan_count": 18
   },
   "banks": [
     {
@@ -18,6 +18,8 @@
       "acc_no": "",
       "ifsc": "NESF0000333",
       "opening": 122.39,
+      "debit": 0.0,
+      "credit": 0.0,
       "net_change": 59847.09,
       "closing": 59969.48
     },
@@ -28,6 +30,8 @@
       "acc_no": "",
       "ifsc": "HDFC0001219",
       "opening": 7859.0,
+      "debit": 0.0,
+      "credit": 0.0,
       "net_change": -7449.0,
       "closing": 410.0
     },
@@ -38,6 +42,8 @@
       "acc_no": "",
       "ifsc": "PUNB0694800",
       "opening": 484.76,
+      "debit": 0.0,
+      "credit": 0.0,
       "net_change": -86.43,
       "closing": 398.33
     },
@@ -48,6 +54,8 @@
       "acc_no": "",
       "ifsc": "IDFB0060119",
       "opening": 108.53,
+      "debit": 0.0,
+      "credit": 0.0,
       "net_change": 140.27,
       "closing": 248.8
     },
@@ -58,6 +66,8 @@
       "acc_no": "",
       "ifsc": "SBIN0005602",
       "opening": 15.26,
+      "debit": 0.0,
+      "credit": 0.0,
       "net_change": 79.51,
       "closing": 94.77
     },
@@ -68,6 +78,8 @@
       "acc_no": "",
       "ifsc": "",
       "opening": -0.0,
+      "debit": 0.0,
+      "credit": 0.0,
       "net_change": 0.0,
       "closing": -0.0
     },
@@ -78,6 +90,8 @@
       "acc_no": "",
       "ifsc": "",
       "opening": -0.0,
+      "debit": 0.0,
+      "credit": 0.0,
       "net_change": 0.0,
       "closing": -0.0
     },
@@ -88,6 +102,8 @@
       "acc_no": "",
       "ifsc": "",
       "opening": -0.0,
+      "debit": 0.0,
+      "credit": 0.0,
       "net_change": 0.0,
       "closing": -0.0
     },
@@ -98,6 +114,8 @@
       "acc_no": "",
       "ifsc": "",
       "opening": -0.0,
+      "debit": 0.0,
+      "credit": 0.0,
       "net_change": 0.0,
       "closing": -0.0
     },
@@ -108,6 +126,8 @@
       "acc_no": "",
       "ifsc": "INDB0000872",
       "opening": -0.0,
+      "debit": 0.0,
+      "credit": 0.0,
       "net_change": 0.0,
       "closing": -0.0
     },
@@ -118,6 +138,8 @@
       "acc_no": "",
       "ifsc": "JIOP0000001",
       "opening": -0.0,
+      "debit": 0.0,
+      "credit": 0.0,
       "net_change": 0.0,
       "closing": -0.0
     },
@@ -128,11 +150,194 @@
       "acc_no": "",
       "ifsc": "HDFC0001923",
       "opening": 1322.15,
+      "debit": 0.0,
+      "credit": 0.0,
       "net_change": -5234.48,
       "closing": -3912.33
     }
   ],
-  "loans": [],
+  "loans": [
+    {
+      "name": "HDFC Credit Card",
+      "group": "Credit Cards",
+      "loan_type": "Credit Cards",
+      "opening": 1893.63,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 31188.1,
+      "closing": 33081.73
+    },
+    {
+      "name": "IDFC Credit Card",
+      "group": "Credit Cards",
+      "loan_type": "Credit Cards",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 14347.28,
+      "closing": 14347.28
+    },
+    {
+      "name": "CRED Wallet",
+      "group": "Credit Cards",
+      "loan_type": "Credit Cards",
+      "opening": 15000.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": -15000.0,
+      "closing": 0.0
+    },
+    {
+      "name": "HDFC Bank Freedom Credit Card",
+      "group": "Credit Cards",
+      "loan_type": "Credit Cards",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 0.0,
+      "closing": 0.0
+    },
+    {
+      "name": "ICICI Bank Credit Card",
+      "group": "Credit Cards",
+      "loan_type": "Credit Cards",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 0.0,
+      "closing": 0.0
+    },
+    {
+      "name": "Slice Credit Card 5262",
+      "group": "Credit Cards",
+      "loan_type": "Credit Cards",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": -6638.97,
+      "closing": -6638.97
+    },
+    {
+      "name": "Credit Card Charges",
+      "group": "Fees and Charges",
+      "loan_type": "Fees and Charges",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": -7850.4,
+      "closing": -7850.4
+    },
+    {
+      "name": "HDFC Credit Card Gift Voucher",
+      "group": "Income From Other Sources",
+      "loan_type": "Income From Other Sources",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 500.0,
+      "closing": 500.0
+    },
+    {
+      "name": "HDFC Loan Payable",
+      "group": "Personal Loans",
+      "loan_type": "Personal Loans",
+      "opening": 7792.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 15584.0,
+      "closing": 23376.0
+    },
+    {
+      "name": "Groww Loan Payable",
+      "group": "Personal Loans",
+      "loan_type": "Personal Loans",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 19733.73,
+      "closing": 19733.73
+    },
+    {
+      "name": "Loan Payable",
+      "group": "Personal Loans",
+      "loan_type": "Personal Loans",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 0.0,
+      "closing": 0.0
+    },
+    {
+      "name": "Recurring Payable",
+      "group": "Personal Loans",
+      "loan_type": "Personal Loans",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 0.0,
+      "closing": 0.0
+    },
+    {
+      "name": "Credit Card EMI ? ICICI",
+      "group": "Short-Term Loans",
+      "loan_type": "Short-Term Loans",
+      "opening": 6713.32,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 0.0,
+      "closing": 6713.32
+    },
+    {
+      "name": "Credit Card EMI ? HDFC",
+      "group": "Short-Term Loans",
+      "loan_type": "Short-Term Loans",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 0.01,
+      "closing": 0.01
+    },
+    {
+      "name": "Credit Card EMI ? IDFC",
+      "group": "Short-Term Loans",
+      "loan_type": "Short-Term Loans",
+      "opening": 39421.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": -46990.59,
+      "closing": -7569.59
+    },
+    {
+      "name": "Insurance Premium Payable",
+      "group": "Subscriptions",
+      "loan_type": "Subscriptions",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 47683.0,
+      "closing": 47683.0
+    },
+    {
+      "name": "Rent Payable",
+      "group": "Subscriptions",
+      "loan_type": "Subscriptions",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 10000.0,
+      "closing": 10000.0
+    },
+    {
+      "name": "APY Payable",
+      "group": "Subscriptions",
+      "loan_type": "Subscriptions",
+      "opening": 0.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": 1590.0,
+      "closing": 1590.0
+    }
+  ],
   "ledger_txns": {
     "Slice - Interest A/c": [
       {
@@ -403,6 +608,161 @@
         "particulars": "Groww Loan Payable",
         "debit": 0.0,
         "credit": 5177.0
+      }
+    ],
+    "HDFC Credit Card": [
+      {
+        "date": "12-Mar-27",
+        "vch_type": "Pymt",
+        "particulars": "Credit Card EMI ? HDFC",
+        "debit": 0.0,
+        "credit": 2424.12
+      }
+    ],
+    "IDFC Credit Card": [
+      {
+        "date": "4-Jan-27",
+        "vch_type": "Pymt",
+        "particulars": "Credit Card EMI ? IDFC",
+        "debit": 0.0,
+        "credit": 2304.74
+      },
+      {
+        "date": "4-Jan-27",
+        "vch_type": "Pymt",
+        "particulars": "Credit Card EMI ? IDFC",
+        "debit": 0.0,
+        "credit": 2311.02
+      }
+    ],
+    "CRED Wallet": [
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Wallet Topup Charges",
+        "debit": 0.0,
+        "credit": 300.0
+      },
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Rcpt",
+        "particulars": "Slice - Interest A/c",
+        "debit": 0.0,
+        "credit": 10000.0
+      },
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Ctra",
+        "particulars": "HDFC Credit Card",
+        "debit": 10300.0,
+        "credit": 0.0
+      }
+    ],
+    "HDFC Bank Freedom Credit Card": [],
+    "ICICI Bank Credit Card": [],
+    "Slice Credit Card 5262": [
+      {
+        "date": "1-Nov-26",
+        "vch_type": "Pymt",
+        "particulars": "Slice - Interest A/c",
+        "debit": 8260.97,
+        "credit": 0.0
+      }
+    ],
+    "Credit Card Charges": [
+      {
+        "date": "4-Jan-27",
+        "vch_type": "Pymt",
+        "particulars": "IDFC Credit Card",
+        "debit": 249.0,
+        "credit": 0.0
+      },
+      {
+        "date": "4-Jan-27",
+        "vch_type": "Pymt",
+        "particulars": "IDFC Credit Card",
+        "debit": 249.0,
+        "credit": 0.0
+      }
+    ],
+    "HDFC Credit Card Gift Voucher": [
+      {
+        "date": "5-Apr-26",
+        "vch_type": "Pymt",
+        "particulars": "MYNTRA DESIGNS PRIVATE LIMITED",
+        "debit": 0.0,
+        "credit": 500.0
+      }
+    ],
+    "HDFC Loan Payable": [
+      {
+        "date": "31-Jan-27",
+        "vch_type": "Pymt",
+        "particulars": "HDFC Bank Loan A/c 467659923",
+        "debit": 0.0,
+        "credit": 7792.0
+      }
+    ],
+    "Groww Loan Payable": [
+      {
+        "date": "31-Mar-27",
+        "vch_type": "Pymt",
+        "particulars": "Groww Loan 01",
+        "debit": 0.0,
+        "credit": 3103.0
+      }
+    ],
+    "Loan Payable": [],
+    "Recurring Payable": [],
+    "Credit Card EMI ? ICICI": [],
+    "Credit Card EMI ? HDFC": [],
+    "Credit Card EMI ? IDFC": [],
+    "Insurance Premium Payable": [
+      {
+        "date": "31-Mar-27",
+        "vch_type": "Pymt",
+        "particulars": "Insurance Premium",
+        "debit": 0.0,
+        "credit": 2370.0
+      },
+      {
+        "date": "31-Mar-27",
+        "vch_type": "Pymt",
+        "particulars": "Travelling Expneses - Kolkata",
+        "debit": 0.0,
+        "credit": 800.0
+      },
+      {
+        "date": "15-Mar-27",
+        "vch_type": "Pymt",
+        "particulars": "Electric Expenses",
+        "debit": 0.0,
+        "credit": 2000.0
+      }
+    ],
+    "Rent Payable": [
+      {
+        "date": "31-Dec-26",
+        "vch_type": "Pymt",
+        "particulars": "Rent Expense - Jaipur",
+        "debit": 0.0,
+        "credit": 5000.0
+      }
+    ],
+    "APY Payable": [
+      {
+        "date": "31-Mar-27",
+        "vch_type": "Pymt",
+        "particulars": "APY",
+        "debit": 0.0,
+        "credit": 318.0
+      },
+      {
+        "date": "1-Mar-27",
+        "vch_type": "Pymt",
+        "particulars": "APY",
+        "debit": 0.0,
+        "credit": 318.0
       }
     ]
   }
