@@ -1,18 +1,19 @@
 {
   "connected": true,
-  "timestamp": "14-Nov-2026 03:31:41 AM",
+  "timestamp": "14-Nov-2026 03:35:41 AM",
   "summary": {
     "total_liquidity": 57209.05,
     "total_bank": 57209.05,
     "total_cash": 0.0,
-    "total_loans": 134966.11,
-    "net_position": -77757.06,
+    "total_loans": 142316.51,
+    "net_position": -85107.46,
     "bank_count": 12,
-    "loan_count": 18
+    "loan_count": 17
   },
   "banks": [
     {
       "name": "Slice - Interest A/c",
+      "raw_name": "Slice - Interest A/c",
       "group": "Bank Accounts",
       "category": "Bank Account",
       "acc_no": "",
@@ -25,6 +26,7 @@
     },
     {
       "name": "HDFC Bank 4227 - Salary A/c",
+      "raw_name": "HDFC Bank 4227 - Salary A/c",
       "group": "Bank Accounts",
       "category": "Bank Account",
       "acc_no": "",
@@ -37,6 +39,7 @@
     },
     {
       "name": "Punjab National Bank - Joint A/c",
+      "raw_name": "Punjab National Bank - Joint A/c",
       "group": "Bank Accounts",
       "category": "Bank Account",
       "acc_no": "",
@@ -49,6 +52,7 @@
     },
     {
       "name": "IDFC First Bank - Recurring A/c",
+      "raw_name": "IDFC First Bank - Recurring A/c",
       "group": "Bank Accounts",
       "category": "Bank Account",
       "acc_no": "",
@@ -61,6 +65,7 @@
     },
     {
       "name": "State Bank of India - Cash A/c",
+      "raw_name": "State Bank of India - Cash A/c",
       "group": "Bank Accounts",
       "category": "Bank Account",
       "acc_no": "",
@@ -73,6 +78,7 @@
     },
     {
       "name": "Axis Bank",
+      "raw_name": "Axis Bank",
       "group": "Bank Accounts",
       "category": "Bank Account",
       "acc_no": "",
@@ -85,6 +91,7 @@
     },
     {
       "name": "Cash",
+      "raw_name": "Cash",
       "group": "Cash-in-hand",
       "category": "Cash-in-Hand",
       "acc_no": "",
@@ -97,6 +104,7 @@
     },
     {
       "name": "Fincare Small Finance Bank",
+      "raw_name": "Fincare Small Finance Bank",
       "group": "Bank Accounts",
       "category": "Bank Account",
       "acc_no": "",
@@ -109,6 +117,7 @@
     },
     {
       "name": "Funds Needs to Arrange",
+      "raw_name": "Funds Needs to Arrange",
       "group": "Cash-in-hand",
       "category": "Cash-in-Hand",
       "acc_no": "",
@@ -121,6 +130,7 @@
     },
     {
       "name": "Indusind Bank - Business A/c",
+      "raw_name": "Indusind Bank - Business A/c",
       "group": "Bank Accounts",
       "category": "Bank Account",
       "acc_no": "",
@@ -133,6 +143,7 @@
     },
     {
       "name": "Jio Payments Bank",
+      "raw_name": "Jio Payments Bank",
       "group": "Bank Accounts",
       "category": "Bank Account",
       "acc_no": "",
@@ -145,6 +156,7 @@
     },
     {
       "name": "HDFC Bank 7764 - Investment A/c",
+      "raw_name": "HDFC Bank 7764 - Investment A/c",
       "group": "Bank Accounts",
       "category": "Bank Account",
       "acc_no": "",
@@ -159,6 +171,7 @@
   "loans": [
     {
       "name": "HDFC Credit Card",
+      "raw_name": "HDFC Credit Card",
       "group": "Credit Cards",
       "loan_type": "Credit Cards",
       "opening": 1893.63,
@@ -169,6 +182,7 @@
     },
     {
       "name": "IDFC Credit Card",
+      "raw_name": "IDFC Credit Card",
       "group": "Credit Cards",
       "loan_type": "Credit Cards",
       "opening": 0.0,
@@ -179,6 +193,7 @@
     },
     {
       "name": "CRED Wallet",
+      "raw_name": "CRED Wallet",
       "group": "Credit Cards",
       "loan_type": "Credit Cards",
       "opening": 15000.0,
@@ -189,6 +204,7 @@
     },
     {
       "name": "HDFC Bank Freedom Credit Card",
+      "raw_name": "HDFC Bank Freedom Credit Card",
       "group": "Credit Cards",
       "loan_type": "Credit Cards",
       "opening": 0.0,
@@ -199,6 +215,7 @@
     },
     {
       "name": "ICICI Bank Credit Card",
+      "raw_name": "ICICI Bank Credit Card",
       "group": "Credit Cards",
       "loan_type": "Credit Cards",
       "opening": 0.0,
@@ -209,6 +226,7 @@
     },
     {
       "name": "Slice Credit Card 5262",
+      "raw_name": "Slice Credit Card 5262",
       "group": "Credit Cards",
       "loan_type": "Credit Cards",
       "opening": 0.0,
@@ -218,27 +236,8 @@
       "closing": -6638.97
     },
     {
-      "name": "Credit Card Charges",
-      "group": "Fees and Charges",
-      "loan_type": "Fees and Charges",
-      "opening": 0.0,
-      "debit_paid": 0.0,
-      "credit_billed": 0.0,
-      "net_change": -7850.4,
-      "closing": -7850.4
-    },
-    {
-      "name": "HDFC Credit Card Gift Voucher",
-      "group": "Income From Other Sources",
-      "loan_type": "Income From Other Sources",
-      "opening": 0.0,
-      "debit_paid": 0.0,
-      "credit_billed": 0.0,
-      "net_change": 500.0,
-      "closing": 500.0
-    },
-    {
       "name": "HDFC Loan Payable",
+      "raw_name": "HDFC Loan Payable",
       "group": "Personal Loans",
       "loan_type": "Personal Loans",
       "opening": 7792.0,
@@ -249,6 +248,7 @@
     },
     {
       "name": "Groww Loan Payable",
+      "raw_name": "Groww Loan Payable",
       "group": "Personal Loans",
       "loan_type": "Personal Loans",
       "opening": 0.0,
@@ -259,6 +259,7 @@
     },
     {
       "name": "Loan Payable",
+      "raw_name": "Loan Payable",
       "group": "Personal Loans",
       "loan_type": "Personal Loans",
       "opening": 0.0,
@@ -269,6 +270,7 @@
     },
     {
       "name": "Recurring Payable",
+      "raw_name": "Recurring Payable",
       "group": "Personal Loans",
       "loan_type": "Personal Loans",
       "opening": 0.0,
@@ -278,7 +280,8 @@
       "closing": 0.0
     },
     {
-      "name": "Credit Card EMI ? ICICI",
+      "name": "Credit Card EMI - ICICI",
+      "raw_name": "Credit Card EMI ? ICICI",
       "group": "Short-Term Loans",
       "loan_type": "Short-Term Loans",
       "opening": 6713.32,
@@ -288,7 +291,8 @@
       "closing": 6713.32
     },
     {
-      "name": "Credit Card EMI ? HDFC",
+      "name": "Credit Card EMI - HDFC",
+      "raw_name": "Credit Card EMI ? HDFC",
       "group": "Short-Term Loans",
       "loan_type": "Short-Term Loans",
       "opening": 0.0,
@@ -298,7 +302,19 @@
       "closing": 0.01
     },
     {
-      "name": "Credit Card EMI ? IDFC",
+      "name": "HDFC Bank Loan A/c 467659923",
+      "raw_name": "HDFC Bank Loan A/c 467659923",
+      "group": "Short-Term Loans",
+      "loan_type": "Short-Term Loans",
+      "opening": 77920.0,
+      "debit_paid": 0.0,
+      "credit_billed": 0.0,
+      "net_change": -77920.0,
+      "closing": 0.0
+    },
+    {
+      "name": "Credit Card EMI - IDFC",
+      "raw_name": "Credit Card EMI ? IDFC",
       "group": "Short-Term Loans",
       "loan_type": "Short-Term Loans",
       "opening": 39421.0,
@@ -309,6 +325,7 @@
     },
     {
       "name": "Insurance Premium Payable",
+      "raw_name": "Insurance Premium Payable",
       "group": "Subscriptions",
       "loan_type": "Subscriptions",
       "opening": 0.0,
@@ -319,6 +336,7 @@
     },
     {
       "name": "Rent Payable",
+      "raw_name": "Rent Payable",
       "group": "Subscriptions",
       "loan_type": "Subscriptions",
       "opening": 0.0,
@@ -329,6 +347,7 @@
     },
     {
       "name": "APY Payable",
+      "raw_name": "APY Payable",
       "group": "Subscriptions",
       "loan_type": "Subscriptions",
       "opening": 0.0,
@@ -669,31 +688,6 @@
         "credit": 0.0
       }
     ],
-    "Credit Card Charges": [
-      {
-        "date": "4-Jan-27",
-        "vch_type": "Pymt",
-        "particulars": "IDFC Credit Card",
-        "debit": 249.0,
-        "credit": 0.0
-      },
-      {
-        "date": "4-Jan-27",
-        "vch_type": "Pymt",
-        "particulars": "IDFC Credit Card",
-        "debit": 249.0,
-        "credit": 0.0
-      }
-    ],
-    "HDFC Credit Card Gift Voucher": [
-      {
-        "date": "5-Apr-26",
-        "vch_type": "Pymt",
-        "particulars": "MYNTRA DESIGNS PRIVATE LIMITED",
-        "debit": 0.0,
-        "credit": 500.0
-      }
-    ],
     "HDFC Loan Payable": [
       {
         "date": "31-Jan-27",
@@ -716,6 +710,15 @@
     "Recurring Payable": [],
     "Credit Card EMI ? ICICI": [],
     "Credit Card EMI ? HDFC": [],
+    "HDFC Bank Loan A/c 467659923": [
+      {
+        "date": "31-Jan-27",
+        "vch_type": "Pymt",
+        "particulars": "HDFC Loan Payable",
+        "debit": 7792.0,
+        "credit": 0.0
+      }
+    ],
     "Credit Card EMI ? IDFC": [],
     "Insurance Premium Payable": [
       {
