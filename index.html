@@ -3,190 +3,178 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrackByTarun — Treasury & Loan Command Center</title>
+<title>TrackByTarun — Month-Wise Treasury & Debt Command Center</title>
 <style>
   :root {
-    --bg: #f1f5f9;
-    --card: #ffffff;
-    --card-alt: #f8fafc;
-    --border: #e2e8f0;
-    --text: #0f172a;
-    --text-sub: #475569;
-    --muted: #64748b;
-    --blue: #2563eb;
-    --blue-bg: #eff6ff;
-    --green: #059669;
-    --green-bg: #ecfdf5;
-    --red: #dc2626;
-    --red-bg: #fef2f2;
-    --amber: #d97706;
-    --amber-bg: #fffbeb;
-    --shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
-  }
-  body.dark {
-    --bg: #0b1120;
-    --card: #111827;
-    --card-alt: #162033;
-    --border: #1e293b;
+    --bg: #070b14;
+    --panel: #0e1424;
+    --card: #121a2e;
+    --card-border: #1e2942;
     --text: #f8fafc;
-    --text-sub: #cbd5e1;
-    --muted: #94a3b8;
-    --blue: #3b82f6;
-    --blue-bg: rgba(59, 130, 246, 0.15);
-    --green: #10b981;
-    --green-bg: rgba(16, 185, 129, 0.14);
-    --red: #f87171;
-    --red-bg: rgba(239, 68, 68, 0.14);
-    --amber: #fbbf24;
+    --muted: #8b9bb4;
+    --amber: #f59e0b;
     --amber-bg: rgba(245, 158, 11, 0.14);
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    --purple: #a855f7;
+    --purple-bg: rgba(168, 85, 247, 0.14);
+    --emerald: #10b981;
+    --emerald-bg: rgba(16, 185, 129, 0.14);
+    --pink: #ec4899;
+    --pink-bg: rgba(236, 72, 153, 0.14);
+    --blue: #3b82f6;
+    --blue-bg: rgba(59, 130, 246, 0.14);
+    --red: #ef4444;
+    --red-bg: rgba(239, 68, 68, 0.14);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif; }
-  body { background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 60px; transition: background 0.2s, color 0.2s; }
+  body { background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 64px; }
 
-  .navbar {
-    position: sticky; top: 0; z-index: 30;
-    background: var(--card); border-bottom: 1px solid var(--border);
-    padding: 14px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
-    box-shadow: var(--shadow);
+  /* Sticky Month Bar Header */
+  .topbar {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(7, 11, 20, 0.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 14px 28px;
   }
-  .nav-left { display: flex; align-items: center; gap: 12px; }
-  .avatar {
-    width: 40px; height: 40px; border-radius: 11px;
-    background: linear-gradient(135deg, #1d4ed8, #059669);
-    display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 19px; color: #fff;
+  .topbar-inner {
+    max-width: 1380px; margin: 0 auto;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
   }
-  .nav-left h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
-  .nav-left p { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .nav-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .live-tag {
-    display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; border-radius: 999px;
-    font-size: 12px; font-weight: 600; background: var(--green-bg); color: var(--green);
+  .month-title-box { display: flex; align-items: center; gap: 14px; }
+  .logo-badge {
+    width: 42px; height: 42px; border-radius: 12px;
+    background: linear-gradient(135deg, #2563eb, #10b981);
+    display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; color: #fff;
   }
-  .live-tag.off { background: var(--red-bg); color: var(--red); }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: pulse 1.6s infinite; }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-  .btn {
-    background: var(--card); color: var(--text); border: 1px solid var(--border);
-    padding: 7px 13px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;
-  }
-  .btn:hover { background: var(--card-alt); }
-  .btn.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .viewing-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .cycle-pill { background: var(--emerald-bg); color: var(--emerald); padding: 2px 8px; border-radius: 999px; font-size: 10px; }
+  .active-month-heading { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin-top: 2px; display: flex; align-items: center; gap: 10px; }
+  .today-link { font-size: 12px; color: var(--blue); cursor: pointer; font-weight: 600; text-decoration: underline; }
 
-  .container { max-width: 1280px; margin: 26px auto; padding: 0 24px; }
+  .month-pills {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+    background: var(--panel); padding: 5px; border-radius: 12px; border: 1px solid var(--card-border);
+  }
+  .m-pill {
+    border: none; background: transparent; color: var(--muted);
+    padding: 6px 11px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.15s;
+  }
+  .m-pill:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+  .m-pill.active { background: var(--blue); color: #fff; box-shadow: 0 2px 10px rgba(59,130,246,0.4); }
 
-  /* Top 4 KPI Cards */
-  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 20px; }
-  .kpi {
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px;
-    box-shadow: var(--shadow);
+  .sync-strip { display: flex; align-items: center; gap: 8px; }
+  .live-dot-pill {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600;
+    padding: 5px 10px; border-radius: 999px; background: var(--emerald-bg); color: var(--emerald);
   }
-  .kpi-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .kpi-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
-  .pill { font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px; letter-spacing: 0.03em; }
-  .p-green { background: var(--green-bg); color: var(--green); }
-  .p-red { background: var(--red-bg); color: var(--red); }
-  .p-blue { background: var(--blue-bg); color: var(--blue); }
-  .p-amber { background: var(--amber-bg); color: var(--amber); }
-  .kpi-value { font-size: 27px; font-weight: 800; letter-spacing: -0.025em; font-variant-numeric: tabular-nums; margin-bottom: 6px; }
-  .kpi-sub { font-size: 12px; color: var(--text-sub); }
-
-  /* Overview Strip */
-  .overview-bar {
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 24px;
-    margin-bottom: 24px; box-shadow: var(--shadow); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px;
-  }
-  .ov-stats { display: flex; gap: 32px; flex-wrap: wrap; }
-  .ov-item span { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
-  .ov-item strong { font-size: 15px; font-variant-numeric: tabular-nums; }
-  .ov-meter { flex: 1; min-width: 240px; max-width: 380px; }
-  .ov-meter-top { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 600; color: var(--text-sub); margin-bottom: 6px; }
-  .meter-track { height: 8px; background: var(--border); border-radius: 999px; overflow: hidden; display: flex; }
-  .meter-green { background: var(--green); transition: width 0.35s; }
-  .meter-red { background: var(--red); transition: width 0.35s; }
-
-  /* Full-Width Section Card */
-  .card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-    box-shadow: var(--shadow); margin-bottom: 26px; overflow: hidden;
-  }
-  .card-head {
-    padding: 18px 24px; border-bottom: 1px solid var(--border);
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
-  }
-  .card-title h2 { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-  .card-title p { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .card-tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-
-  .seg-group { display: inline-flex; background: var(--card-alt); padding: 3px; border-radius: 9px; border: 1px solid var(--border); }
-  .seg-btn {
-    border: none; background: transparent; color: var(--text-sub); padding: 5px 11px; border-radius: 6px;
-    font-size: 12px; font-weight: 600; cursor: pointer;
-  }
-  .seg-btn.active { background: var(--card); color: var(--blue); box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
-
-  .search {
-    background: var(--card-alt); border: 1px solid var(--border); color: var(--text);
-    padding: 7px 12px; border-radius: 8px; font-size: 12px; width: 210px; outline: none;
-  }
-  .search:focus { border-color: var(--blue); }
-
-  .tbl-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; }
-  th {
-    background: var(--card-alt); color: var(--muted); font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.04em; padding: 12px 24px; text-align: left;
-    border-bottom: 1px solid var(--border); white-space: nowrap;
-  }
-  th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
-  td { padding: 13px 24px; border-bottom: 1px solid var(--border); font-size: 13.5px; }
-  tr.row-click { cursor: pointer; transition: background 0.12s; }
-  tr.row-click:hover { background: var(--card-alt); }
-
-  /* Tally-Style Category Header & Subtotals */
-  tr.grp-row td {
-    background: var(--blue-bg); color: var(--blue);
-    font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 9px 24px; border-bottom: 1px solid var(--border);
-  }
-  tr.sub-row td {
-    background: var(--card-alt); font-weight: 700; font-size: 12.5px; color: var(--text-sub);
-    padding: 10px 24px; border-bottom: 2px solid var(--border);
-  }
-  tr.tot-row td {
-    background: var(--card-alt); font-weight: 800; font-size: 14px; color: var(--text);
-    padding: 15px 24px; border-top: 2px solid var(--border);
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .btn-sm {
+    background: var(--card); border: 1px solid var(--card-border); color: var(--text);
+    padding: 6px 11px; border-radius: 8px; font-size: 11.5px; font-weight: 600; cursor: pointer;
   }
 
-  .name-main { font-weight: 600; color: var(--text); }
-  .name-sub { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
-  .share-bar { width: 84px; height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 8px; }
-  .share-fill { height: 100%; background: var(--green); border-radius: 999px; }
+  .wrap { max-width: 1380px; margin: 22px auto; padding: 0 24px; }
 
-  .t-green { color: var(--green); }
-  .t-red { color: var(--red); }
-  .t-muted { color: var(--muted); }
-  .empty { padding: 36px; text-align: center; color: var(--muted); font-size: 13px; }
+  /* Top 5 KPI Cards (Matching Screenshot) */
+  .kpi-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .kpi-box {
+    background: var(--panel); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 20px;
+    transition: transform 0.15s, border-color 0.15s;
+  }
+  .kpi-box:hover { transform: translateY(-2px); border-color: #2e3f66; }
+  .kpi-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .kpi-name { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .tag { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+  .t-amber { background: var(--amber-bg); color: var(--amber); }
+  .t-purple { background: var(--purple-bg); color: var(--purple); }
+  .t-emerald { background: var(--emerald-bg); color: var(--emerald); }
+  .t-pink { background: var(--pink-bg); color: var(--pink); }
+  .t-blue { background: var(--blue-bg); color: var(--blue); }
+  .t-red { background: var(--red-bg); color: var(--red); }
+
+  .kpi-big { font-size: 25px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-bottom: 6px; }
+  .kpi-desc { font-size: 11.5px; color: var(--muted); }
+
+  /* Section Header */
+  .sec-header {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+    margin: 26px 0 14px;
+  }
+  .sec-header h2 { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 9px; }
+  .sec-header p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* Cards Grid */
+  .cards-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+
+  /* Gradient Credit Card Styles (HDFC Blue, IDFC Maroon, Slice Purple) */
+  .cc-card {
+    border-radius: 16px; padding: 20px; cursor: pointer; position: relative; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12); transition: transform 0.16s, box-shadow 0.16s;
+  }
+  .cc-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.45); }
+  .grad-blue { background: linear-gradient(145deg, #0d2b5c 0%, #091732 100%); }
+  .grad-red { background: linear-gradient(145deg, #4c1122 0%, #1f0912 100%); }
+  .grad-purple { background: linear-gradient(145deg, #3b145e 0%, #190929 100%); }
+  .grad-teal { background: linear-gradient(145deg, #0d3b38 0%, #081c1e 100%); }
+
+  .card-row-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+  .card-issuer { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.65); }
+  .card-title { font-size: 16px; font-weight: 700; color: #fff; margin-top: 2px; }
+  .inner-box {
+    background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 11px; padding: 12px 14px; margin-bottom: 14px;
+  }
+  .kv-line { display: flex; justify-content: space-between; align-items: center; font-size: 12px; padding: 4px 0; }
+  .kv-line span:first-child { color: var(--muted); }
+  .kv-line strong { font-variant-numeric: tabular-nums; }
+  .kv-divider { border-top: 1px dashed rgba(255,255,255,0.12); margin: 6px 0; }
+  .card-footer-btn {
+    width: 100%; padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.07); color: #fff; font-size: 11.5px; font-weight: 600; cursor: pointer;
+  }
+  .card-footer-btn:hover { background: rgba(255,255,255,0.14); }
+
+  /* Dark Facility Card (Loans, Banks, Subscriptions) */
+  .dark-card {
+    background: var(--panel); border: 1px solid var(--card-border); border-radius: 15px; padding: 18px 20px;
+    cursor: pointer; transition: transform 0.15s, border-color 0.15s;
+  }
+  .dark-card:hover { transform: translateY(-2px); border-color: #334770; }
+  .prog-track { height: 6px; background: #1c263e; border-radius: 999px; overflow: hidden; margin: 10px 0 6px; }
+  .prog-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #3b82f6, #10b981); }
+
+  /* Charts Row */
+  .charts-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; margin-top: 26px; }
+  @media (max-width: 960px) { .charts-grid { grid-template-columns: 1fr; } }
+  .chart-panel {
+    background: var(--panel); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px 22px;
+  }
+  .chart-panel h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .chart-panel p { font-size: 11.5px; color: var(--muted); margin-bottom: 16px; }
 
   /* Drawer */
-  .backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55); z-index: 50; display: none; justify-content: flex-end; backdrop-filter: blur(2px); }
+  .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.72); z-index: 60; display: none; justify-content: flex-end; backdrop-filter: blur(4px); }
   .backdrop.open { display: flex; }
-  .drawer { width: 100%; max-width: 650px; background: var(--card); height: 100%; display: flex; flex-direction: column; box-shadow: -8px 0 30px rgba(0,0,0,0.25); }
-  .drawer-head { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .drawer { width: 100%; max-width: 620px; background: var(--panel); border-left: 1px solid var(--card-border); height: 100%; display: flex; flex-direction: column; }
+  .drawer-head { padding: 20px 24px; border-bottom: 1px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; }
   .drawer-body { padding: 16px 24px; overflow-y: auto; flex: 1; }
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; font-size: 11px; color: var(--muted); text-transform: uppercase; padding: 10px 8px; border-bottom: 1px solid var(--card-border); }
+  td { padding: 12px 8px; border-bottom: 1px solid var(--card-border); font-size: 13px; }
+  th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
 </style>
 </head>
 <body>
 
 <!-- PIN LOCK -->
-<div id="pinGate" style="position:fixed;inset:0;background:#0b1120;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;">
-  <div style="background:#111827;border:1px solid #1e293b;border-radius:18px;padding:34px;max-width:360px;width:100%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.65);">
+<div id="pinGate" style="position:fixed;inset:0;background:#070b14;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#0e1424;border:1px solid #1e2942;border-radius:18px;padding:34px;max-width:360px;width:100%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.7);">
     <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#2563eb,#10b981);display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:23px;color:#fff;margin-bottom:14px;">₹</div>
-    <h2 style="font-size:19px;font-weight:700;margin-bottom:6px;color:#f8fafc;">TrackByTarun</h2>
-    <p style="font-size:12.5px;color:#94a3b8;margin-bottom:20px;">Enter 4-Digit PIN to View Live Treasury</p>
-    <input id="pinInput" type="password" inputmode="numeric" placeholder="••••" onkeydown="if(event.key==='Enter')unlockDash()" style="width:100%;padding:12px;border-radius:10px;border:1px solid #334155;background:#0b1120;color:#fff;font-size:18px;text-align:center;letter-spacing:6px;outline:none;margin-bottom:14px;">
-    <button onclick="unlockDash()" style="width:100%;padding:12px;border-radius:10px;border:none;background:#2563eb;color:#fff;font-weight:700;font-size:13.5px;cursor:pointer;">Unlock Dashboard</button>
-    <p id="pinErr" style="color:#f87171;font-size:12px;margin-top:12px;display:none;">Incorrect PIN. Try again.</p>
+    <h2 style="font-size:19px;font-weight:700;margin-bottom:6px;">TrackByTarun</h2>
+    <p style="font-size:12px;color:#8b9bb4;margin-bottom:20px;">Month-Wise Treasury & Debt Monitor • Enter PIN</p>
+    <input id="pinInput" type="password" inputmode="numeric" placeholder="••••" onkeydown="if(event.key==='Enter')unlockDash()" style="width:100%;padding:12px;border-radius:10px;border:1px solid #2b3a5e;background:#070b14;color:#fff;font-size:18px;text-align:center;letter-spacing:6px;outline:none;margin-bottom:14px;">
+    <button onclick="unlockDash()" style="width:100%;padding:12px;border-radius:10px;border:none;background:#2563eb;color:#fff;font-weight:700;font-size:13.5px;cursor:pointer;">Unlock Command Center</button>
+    <p id="pinErr" style="color:#ef4444;font-size:12px;margin-top:12px;display:none;">Incorrect PIN. Try again.</p>
   </div>
 </div>
 <script>
@@ -202,155 +190,125 @@
   }
 </script>
 
-<!-- TOP BAR -->
-<div class="navbar">
-  <div class="nav-left">
-    <div class="avatar">₹</div>
+<!-- TOP MONTH SELECTOR BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="month-title-box">
+      <div class="logo-badge">₹</div>
+      <div>
+        <div class="viewing-label">VIEWING STATEMENT MONTH <span class="cycle-pill">Tally Live Billing Cycle</span></div>
+        <div class="active-month-heading">
+          <span id="activeMonthLabel">Loading...</span>
+          <span class="today-link" onclick="jumpToCurrentMonth()">Today</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="monthPillsBar" class="month-pills"></div>
+
+    <div class="sync-strip">
+      <div class="live-dot-pill"><span class="dot"></span><span id="syncStatusText">Synced</span></div>
+      <button class="btn-sm" onclick="fetchData()">Refresh</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- TOP 5 KPI BOXES -->
+  <div class="kpi-5">
+    <div class="kpi-box">
+      <div class="kpi-top"><span class="kpi-name">Credit Cards</span><span id="kpiCCBadge" class="tag t-amber">0 Cards</span></div>
+      <div id="kpiCCVal" class="kpi-big" style="color:var(--amber);">₹0.00</div>
+      <div id="kpiCCSub" class="kpi-desc">Billed: ₹0 • Paid: ₹0</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-top"><span class="kpi-name">Personal & Term Loans</span><span id="kpiLoanBadge" class="tag t-purple">0 Loans</span></div>
+      <div id="kpiLoanVal" class="kpi-big" style="color:var(--purple);">₹0.00</div>
+      <div id="kpiLoanSub" class="kpi-desc">Billed: ₹0 • Paid: ₹0</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-top"><span class="kpi-name">Subscriptions & Bills</span><span id="kpiSubBadge" class="tag t-pink">Monthly</span></div>
+      <div id="kpiSubVal" class="kpi-big" style="color:var(--pink);">₹0.00</div>
+      <div id="kpiSubSub" class="kpi-desc">Insurance, Rent & APY</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-top"><span class="kpi-name">Total Due / Payable</span><span id="kpiTotBadge" class="tag t-red">Liability</span></div>
+      <div id="kpiTotDue" class="kpi-big" style="color:var(--red);">₹0.00</div>
+      <div id="kpiTotSub" class="kpi-desc">Opening: ₹0 • Paid: ₹0</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-top"><span class="kpi-name">Bank & Cash Liquidity</span><span class="tag t-emerald">Available</span></div>
+      <div id="kpiBankVal" class="kpi-big" style="color:var(--emerald);">₹0.00</div>
+      <div id="kpiBankSub" class="kpi-desc">Net Position: ₹0.00</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: CREDIT CARDS & STATEMENT CYCLES -->
+  <div class="sec-header">
     <div>
-      <h1>TrackByTarun • Treasury & Loan Monitor</h1>
-      <p id="syncTime">Connecting to TallyPrime...</p>
+      <h2>💳 Your Credit Cards & Statement Cycles <span id="ccSecBadge" class="tag t-amber">0 Cards</span></h2>
+      <p>Month-wise Opening, Paid (Debit), Billed (Credit) & Closing Due • Click card for ledger entries</p>
     </div>
   </div>
-  <div class="nav-right">
-    <div id="liveBadge" class="live-tag"><span class="dot"></span><span id="liveText">CLOUD SNAPSHOT • Auto-Synced</span></div>
-    <button id="unitToggle" class="btn" onclick="toggleUnits()">Exact ₹</button>
-    <button id="themeBtn" class="btn" onclick="toggleTheme()">Dark Mode</button>
-    <button class="btn primary" onclick="fetchTreasury()">Refresh</button>
-  </div>
-</div>
+  <div id="ccGrid" class="cards-3"></div>
 
-<div class="container">
-  <!-- KPI CARDS -->
-  <div class="kpi-grid">
-    <div class="kpi">
-      <div class="kpi-head"><span class="kpi-label">Available Bank & Cash</span><span class="pill p-green">LIQUIDITY</span></div>
-      <div id="kpiLiquidity" class="kpi-value t-green">₹0.00</div>
-      <div id="kpiLiquiditySub" class="kpi-sub">Banks: ₹0.00 • Cash: ₹0.00</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-head"><span class="kpi-label">Total Loans & Payables</span><span class="pill p-red">OUTSTANDING</span></div>
-      <div id="kpiLoans" class="kpi-value t-red">₹0.00</div>
-      <div id="kpiLoansSub" class="kpi-sub">0 active dues</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-head"><span class="kpi-label">Net Cash Position</span><span id="netChip" class="pill p-blue">NET</span></div>
-      <div id="kpiNet" class="kpi-value">₹0.00</div>
-      <div class="kpi-sub">Available Liquidity minus Total Dues</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-head"><span class="kpi-label">Liquidity Cover Ratio</span><span class="pill p-amber">COVERAGE</span></div>
-      <div id="kpiRatio" class="kpi-value">0.0%</div>
-      <div id="kpiRatioSub" class="kpi-sub">Cash cover against total debt</div>
+  <!-- SECTION 2: LOANS & LIABILITIES -->
+  <div class="sec-header">
+    <div>
+      <h2>🏦 Loans & Liabilities <span id="loanSecBadge" class="tag t-purple">0 Facilities</span></h2>
+      <p>Personal Loans & Short-Term EMI Facilities • Click any facility for statement</p>
     </div>
   </div>
+  <div id="loansGrid" class="cards-3"></div>
 
-  <!-- LOAN ACTIVITY STRIP -->
-  <div class="overview-bar">
-    <div class="ov-stats">
-      <div class="ov-item"><span>Loan Opening</span><strong id="hmOpen">₹0.00</strong></div>
-      <div class="ov-item"><span>Total Paid (Debit)</span><strong id="hmPaid" class="t-green">₹0.00</strong></div>
-      <div class="ov-item"><span>Total Billed (Credit)</span><strong id="hmBilled">₹0.00</strong></div>
-      <div class="ov-item"><span>Net Closing Due</span><strong id="hmDue" class="t-red">₹0.00</strong></div>
-    </div>
-    <div class="ov-meter">
-      <div class="ov-meter-top">
-        <span>Cash vs Debt Ratio</span>
-        <span id="splitText">0% Cash • 0% Debt</span>
-      </div>
-      <div class="meter-track">
-        <div id="barBank" class="meter-green" style="width:50%"></div>
-        <div id="barLoan" class="meter-red" style="width:50%"></div>
-      </div>
+  <!-- SECTION 3: SUBSCRIPTIONS & RECURRING COMMITMENTS -->
+  <div class="sec-header">
+    <div>
+      <h2>🔄 Subscriptions & Recurring Commitments <span id="subSecBadge" class="tag t-pink">Monthly</span></h2>
+      <p>Insurance Premium, Rent Payable & APY commitments for selected month</p>
     </div>
   </div>
+  <div id="subsGrid" class="cards-3"></div>
 
-  <!-- SECTION 1: BANK ACCOUNTS & LIQUIDITY -->
-  <div class="card">
-    <div class="card-head">
-      <div class="card-title">
-        <h2>1. Bank Accounts & Liquidity <span id="bankCountBadge" class="pill p-green">0</span></h2>
-        <p>Click any bank row to view live Tally statement</p>
-      </div>
-      <div class="card-tools">
-        <div class="seg-group">
-          <button id="bTabActive" class="seg-btn active" onclick="setBankFilter('ACTIVE')">Active Only</button>
-          <button id="bTabAll" class="seg-btn" onclick="setBankFilter('ALL')">All Accounts</button>
-        </div>
-        <input id="bankSearch" class="search" placeholder="Search bank or IFSC..." oninput="renderTables()">
-      </div>
+  <!-- SECTION 4: BANK ACCOUNTS & LIQUIDITY -->
+  <div class="sec-header">
+    <div>
+      <h2>💰 Bank Accounts & Cash Liquidity <span id="bankSecBadge" class="tag t-emerald">Active</span></h2>
+      <p>Closing balances & monthly cash flow across your bank accounts</p>
     </div>
-    <div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Bank / Account Name</th>
-            <th>Share</th>
-            <th class="num">Opening</th>
-            <th class="num">FY Net Change</th>
-            <th class="num">Closing Balance</th>
-          </tr>
-        </thead>
-        <tbody id="bankTableBody">
-          <tr><td colspan="5" class="empty">Loading bank accounts...</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <button id="bankToggleBtn" class="btn-sm" onclick="toggleZeroBanks()">Show Zero-Balance Banks</button>
   </div>
+  <div id="banksGrid" class="cards-3"></div>
 
-  <!-- SECTION 2: LOAN AND PAYABLE SUMMARY -->
-  <div class="card">
-    <div class="card-head">
-      <div class="card-title">
-        <h2>2. Loan & Payable Summary <span id="loanCountBadge" class="pill p-red">0</span></h2>
-        <p>Organized by Credit Cards, Personal Loans, Short-Term Loans & Subscriptions</p>
-      </div>
-      <div class="card-tools">
-        <div class="seg-group">
-          <button id="lTabAll" class="seg-btn active" onclick="setLoanFilter('ALL')">All Items</button>
-          <button id="lTabDue" class="seg-btn" onclick="setLoanFilter('DUE')">Dues Only</button>
-        </div>
-        <input id="loanSearch" class="search" placeholder="Search card or loan..." oninput="renderTables()">
-      </div>
+  <!-- SECTION 5: VISUAL ANALYTICS (DONUT + MONTH-WISE TIMELINE) -->
+  <div class="charts-grid">
+    <div class="chart-panel">
+      <h3>Liability Breakdown</h3>
+      <p id="donutSub">Distribution across Credit Cards, Loans & Subscriptions</p>
+      <div id="donutContainer" style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;min-height:220px;"></div>
     </div>
-    <div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Category / Ledger Name</th>
-            <th>Status</th>
-            <th class="num">Opening</th>
-            <th class="num">Debit (Paid)</th>
-            <th class="num">Credit (Billed)</th>
-            <th class="num">Closing (Due)</th>
-          </tr>
-        </thead>
-        <tbody id="loanTableBody">
-          <tr><td colspan="6" class="empty">Loading loans & payables...</td></tr>
-        </tbody>
-      </table>
+    <div class="chart-panel">
+      <h3>Month-Wise Due & Repayment Timeline (FY)</h3>
+      <p>Monthly Closing Liability vs Paid (Debit) across all 12 months</p>
+      <div id="timelineContainer" style="width:100%;overflow-x:auto;min-height:220px;"></div>
     </div>
   </div>
 </div>
 
-<!-- VOUCHER DRAWER -->
+<!-- DRAWER MODAL -->
 <div id="drawerBackdrop" class="backdrop" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="drawer">
     <div class="drawer-head">
       <div>
         <h3 id="drawerTitle" style="font-size:16px;font-weight:700;">Ledger Statement</h3>
-        <p id="drawerSub" style="font-size:12px;color:var(--muted);margin-top:2px;">Recent Tally Vouchers</p>
+        <p id="drawerSub" style="font-size:12px;color:var(--muted);margin-top:2px;">Tally Vouchers</p>
       </div>
-      <button class="btn" onclick="document.getElementById('drawerBackdrop').classList.remove('open')">Close ✕</button>
+      <button class="btn-sm" onclick="document.getElementById('drawerBackdrop').classList.remove('open')">Close ✕</button>
     </div>
     <div class="drawer-body">
       <table>
         <thead>
-          <tr>
-            <th>Date</th>
-            <th>Particulars</th>
-            <th class="num">Debit (₹)</th>
-            <th class="num">Credit (₹)</th>
-          </tr>
+          <tr><th>Date</th><th>Particulars</th><th class="num">Debit (₹)</th><th class="num">Credit (₹)</th></tr>
         </thead>
         <tbody id="drawerBody"></tbody>
       </table>
@@ -359,272 +317,318 @@
 </div>
 
 <script>
-let cachedData = null;
-let compactMode = false;
-let bankFilter = "ACTIVE";
-let loanFilter = "ALL";
-
-if (localStorage.getItem("tbt_theme") === "dark") {
-  document.body.classList.add("dark");
-  document.getElementById("themeBtn").innerText = "Light Mode";
-}
-
-function toggleTheme() {
-  const isDark = document.body.classList.toggle("dark");
-  localStorage.setItem("tbt_theme", isDark ? "dark" : "light");
-  document.getElementById("themeBtn").innerText = isDark ? "Light Mode" : "Dark Mode";
-}
+let rootData = null;
+let selectedMonthKey = "";
+let showZeroBanks = false;
 
 function fmtINR(num) {
   const n = Number(num || 0);
   const sign = n < 0 ? "-" : "";
-  const abs = Math.abs(n);
-  if (compactMode) {
-    if (abs >= 10000000) return sign + "₹" + (abs / 10000000).toFixed(2) + " Cr";
-    if (abs >= 100000) return sign + "₹" + (abs / 100000).toFixed(2) + " L";
-  }
-  return sign + "₹" + abs.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return sign + "₹" + Math.abs(n).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-function toggleUnits() {
-  compactMode = !compactMode;
-  document.getElementById("unitToggle").innerText = compactMode ? "Lakhs / Cr" : "Exact ₹";
-  if (cachedData) renderAll(cachedData);
+function jumpToCurrentMonth() {
+  if (!rootData) return;
+  selectedMonthKey = rootData.default_month;
+  renderDashboard();
 }
 
-function setBankFilter(m) {
-  bankFilter = m;
-  document.getElementById("bTabActive").classList.toggle("active", m === "ACTIVE");
-  document.getElementById("bTabAll").classList.toggle("active", m === "ALL");
-  renderTables();
+function toggleZeroBanks() {
+  showZeroBanks = !showZeroBanks;
+  document.getElementById("bankToggleBtn").innerText = showZeroBanks ? "Hide Zero-Balance Banks" : "Show Zero-Balance Banks";
+  renderDashboard();
 }
 
-function setLoanFilter(m) {
-  loanFilter = m;
-  document.getElementById("lTabAll").classList.toggle("active", m === "ALL");
-  document.getElementById("lTabDue").classList.toggle("active", m === "DUE");
-  renderTables();
+function selectMonth(key) {
+  selectedMonthKey = key;
+  renderDashboard();
 }
 
-function renderAll(data) {
-  const s = data.summary;
-  const activeDues = (data.loans || []).filter(l => l.closing > 0).length;
-
-  document.getElementById("kpiLiquidity").innerText = fmtINR(s.total_liquidity);
-  document.getElementById("kpiLiquiditySub").innerText = `Banks: ${fmtINR(s.total_bank)} • Cash: ${fmtINR(s.total_cash)}`;
-
-  document.getElementById("kpiLoans").innerText = fmtINR(s.total_loans);
-  document.getElementById("kpiLoansSub").innerText = `${activeDues} active dues • ${(data.loans || []).length} total accounts`;
-
-  const netEl = document.getElementById("kpiNet");
-  const netChip = document.getElementById("netChip");
-  netEl.innerText = fmtINR(s.net_position);
-  netEl.className = "kpi-value " + (s.net_position >= 0 ? "t-green" : "t-red");
-  netChip.innerText = s.net_position >= 0 ? "SURPLUS" : "DEFICIT";
-  netChip.className = "pill " + (s.net_position >= 0 ? "p-green" : "p-red");
-
-  const cov = s.total_loans > 0 ? ((s.total_liquidity / s.total_loans) * 100) : 100;
-  document.getElementById("kpiRatio").innerText = cov.toFixed(1) + "%";
-
-  const totOpen = (data.loans || []).reduce((a, b) => a + (b.opening || 0), 0);
-  const totPaid = (data.loans || []).reduce((a, b) => a + (b.debit_paid || 0), 0);
-  const totBilled = (data.loans || []).reduce((a, b) => a + (b.credit_billed || 0), 0);
-
-  document.getElementById("hmOpen").innerText = fmtINR(totOpen);
-  document.getElementById("hmPaid").innerText = fmtINR(totPaid);
-  document.getElementById("hmBilled").innerText = fmtINR(totBilled);
-  document.getElementById("hmDue").innerText = fmtINR(s.total_loans);
-
-  const totalVol = Math.max(s.total_liquidity + Math.max(s.total_loans, 0), 1);
-  const bankPct = ((Math.max(s.total_liquidity, 0) / totalVol) * 100).toFixed(1);
-  const loanPct = ((Math.max(s.total_loans, 0) / totalVol) * 100).toFixed(1);
-  document.getElementById("barBank").style.width = bankPct + "%";
-  document.getElementById("barLoan").style.width = loanPct + "%";
-  document.getElementById("splitText").innerText = `${bankPct}% Liquidity • ${loanPct}% Debt`;
-
-  renderTables();
-}
-
-function renderTables() {
-  if (!cachedData) return;
-  const bQuery = document.getElementById("bankSearch").value.toLowerCase();
-  const lQuery = document.getElementById("loanSearch").value.toLowerCase();
-
-  // 1. BANKS
-  const banks = (cachedData.banks || []).filter(b => {
-    const matchText = b.name.toLowerCase().includes(bQuery) || (b.ifsc || "").toLowerCase().includes(bQuery);
-    const hasActivity = Math.abs(b.opening) > 0.005 || Math.abs(b.net_change) > 0.005 || Math.abs(b.closing) > 0.005;
-    return matchText && (bankFilter === "ALL" || hasActivity);
-  });
-  document.getElementById("bankCountBadge").innerText = `${banks.length} / ${(cachedData.banks || []).length}`;
-
-  const bBody = document.getElementById("bankTableBody");
-  if (!banks.length) {
-    bBody.innerHTML = `<tr><td colspan="5" class="empty">No bank accounts match filter.</td></tr>`;
-  } else {
-    const posTotal = Math.max(banks.reduce((a, b) => a + Math.max(b.closing, 0), 0), 1);
-    const sumOpen = (cachedData.banks || []).reduce((a, b) => a + b.opening, 0);
-    const sumChg = (cachedData.banks || []).reduce((a, b) => a + b.net_change, 0);
-    const sumClose = (cachedData.banks || []).reduce((a, b) => a + b.closing, 0);
-
-    let bHtml = banks.map(b => {
-      const pct = Math.max(0, (b.closing / posTotal) * 100);
-      const chgCls = b.net_change >= 0 ? "t-green" : "t-red";
-      const sign = b.net_change > 0 ? "+" : "";
-      const meta = [b.category, b.acc_no ? `A/c: ${b.acc_no}` : "", b.ifsc ? `IFSC: ${b.ifsc}` : ""].filter(Boolean).join(" • ");
-      const lookupName = (b.raw_name || b.name).replace(/'/g, "'");
-      return `<tr class="row-click" onclick="openLedgerDrawer('${lookupName}', '${b.name.replace(/'/g, "'")}', '${meta.replace(/'/g, "'")}')">
-        <td><div class="name-main">${b.name}</div><div class="name-sub">${meta}</div></td>
-        <td><div class="share-bar"><div class="share-fill" style="width:${pct.toFixed(1)}%"></div></div><span style="font-size:12px;color:var(--muted);font-weight:600;">${pct.toFixed(1)}%</span></td>
-        <td class="num">${fmtINR(b.opening)}</td>
-        <td class="num ${chgCls}">${sign}${fmtINR(b.net_change)}</td>
-        <td class="num ${b.closing < 0 ? 't-red' : ''}" style="font-weight:700;">${fmtINR(b.closing)}</td>
-      </tr>`;
-    }).join("");
-
-    bHtml += `<tr class="tot-row">
-      <td colspan="2">Total Bank & Cash Liquidity</td>
-      <td class="num">${fmtINR(sumOpen)}</td>
-      <td class="num ${sumChg >= 0 ? 't-green' : 't-red'}">${sumChg > 0 ? '+' : ''}${fmtINR(sumChg)}</td>
-      <td class="num t-green">${fmtINR(sumClose)}</td>
-    </tr>`;
-    bBody.innerHTML = bHtml;
+function renderDashboard() {
+  if (!rootData || !rootData.months) return;
+  const mList = rootData.month_list || [];
+  if (!selectedMonthKey || !rootData.months[selectedMonthKey]) {
+    selectedMonthKey = rootData.default_month || (mList[0] ? mList[0].key : "");
   }
 
-  // 2. LOANS & PAYABLES (GROUPED WITH SUBTOTALS)
-  const loans = (cachedData.loans || []).filter(l => {
-    const matchText = l.name.toLowerCase().includes(lQuery) || l.loan_type.toLowerCase().includes(lQuery);
-    const matchDue = loanFilter === "ALL" || l.closing > 0;
-    return matchText && matchDue;
-  });
-  document.getElementById("loanCountBadge").innerText = loans.length;
+  // Render Month Pills
+  const pillsHtml = mList.map(m => {
+    const active = m.key === selectedMonthKey ? "active" : "";
+    return `<button class="m-pill ${active}" onclick="selectMonth('${m.key}')">${m.short}</button>`;
+  }).join("");
+  document.getElementById("monthPillsBar").innerHTML = pillsHtml;
 
-  const lBody = document.getElementById("loanTableBody");
-  if (!loans.length) {
-    lBody.innerHTML = `<tr><td colspan="6" class="empty">No loan or payable items found.</td></tr>`;
-    return;
-  }
+  const activeMeta = mList.find(m => m.key === selectedMonthKey);
+  document.getElementById("activeMonthLabel").innerText = activeMeta ? activeMeta.label : selectedMonthKey;
 
-  const groups = {};
-  loans.forEach(l => {
-    const gKey = (l.loan_type || "Loan Accounts").toUpperCase();
-    if (!groups[gKey]) groups[gKey] = [];
-    groups[gKey].push(l);
-  });
+  const snap = rootData.months[selectedMonthKey] || { summary: {}, banks: [], loans: [] };
+  const banks = snap.banks || [];
+  const loans = snap.loans || [];
 
-  let lHtml = "";
-  let gOpen = 0, gPaid = 0, gBilled = 0, gClose = 0;
+  // Categorize Loans into Credit Cards, Loans, Subscriptions
+  const creditCards = loans.filter(l => l.loan_type.toLowerCase().includes("credit card"));
+  const subs = loans.filter(l => l.loan_type.toLowerCase().includes("subscription"));
+  const termLoans = loans.filter(l => !l.loan_type.toLowerCase().includes("credit card") && !l.loan_type.toLowerCase().includes("subscription"));
 
-  Object.keys(groups).forEach(cat => {
-    const items = groups[cat];
-    let cOpen = 0, cPaid = 0, cBilled = 0, cClose = 0;
-    lHtml += `<tr class="grp-row"><td colspan="6">${cat}</td></tr>`;
+  const sumField = (arr, k) => arr.reduce((a, b) => a + (Number(b[k]) || 0), 0);
 
-    items.forEach(l => {
-      const op = l.opening || 0;
-      const pd = l.debit_paid || 0;
-      const bl = l.credit_billed || 0;
-      const cl = l.closing || 0;
-      cOpen += op; cPaid += pd; cBilled += bl; cClose += cl;
-      gOpen += op; gPaid += pd; gBilled += bl; gClose += cl;
+  const ccDue = sumField(creditCards, "closing");
+  const ccPaid = sumField(creditCards, "debit_paid");
+  const ccBilled = sumField(creditCards, "credit_billed");
 
-      let badge = `<span class="pill p-green">CLEARED</span>`;
-      if (cl > 0.005) badge = `<span class="pill p-red">DUE</span>`;
-      else if (cl < -0.005) badge = `<span class="pill p-blue">ADVANCE / CR</span>`;
+  const loanDue = sumField(termLoans, "closing");
+  const loanPaid = sumField(termLoans, "debit_paid");
+  const loanBilled = sumField(termLoans, "credit_billed");
 
-      const lookupName = (l.raw_name || l.name).replace(/'/g, "'");
-      lHtml += `<tr class="row-click" onclick="openLedgerDrawer('${lookupName}', '${l.name.replace(/'/g, "'")}', '${cat}')">
-        <td><div class="name-main">${l.name}</div></td>
-        <td>${badge}</td>
-        <td class="num">${fmtINR(op)}</td>
-        <td class="num t-green">${fmtINR(pd)}</td>
-        <td class="num">${fmtINR(bl)}</td>
-        <td class="num ${cl > 0 ? 't-red' : (cl < 0 ? 't-green' : 't-muted')}" style="font-weight:700;">${fmtINR(cl)}</td>
-      </tr>`;
-    });
+  const subDue = sumField(subs, "closing");
+  const subPaid = sumField(subs, "debit_paid");
+  const subBilled = sumField(subs, "credit_billed");
 
-    lHtml += `<tr class="sub-row">
-      <td colspan="2">Subtotal — ${cat}</td>
-      <td class="num">${fmtINR(cOpen)}</td>
-      <td class="num t-green">${fmtINR(cPaid)}</td>
-      <td class="num">${fmtINR(cBilled)}</td>
-      <td class="num ${cClose > 0 ? 't-red' : ''}">${fmtINR(cClose)}</td>
-    </tr>`;
-  });
+  const totOpen = sumField(loans, "opening");
+  const totPaid = sumField(loans, "debit_paid");
+  const totDue = sumField(loans, "closing");
+  const totBank = sumField(banks, "closing");
+  const netPos = totBank - totDue;
 
-  lHtml += `<tr class="tot-row">
-    <td colspan="2">Grand Total — Loans & Payables</td>
-    <td class="num">${fmtINR(gOpen)}</td>
-    <td class="num t-green">${fmtINR(gPaid)}</td>
-    <td class="num">${fmtINR(gBilled)}</td>
-    <td class="num t-red">${fmtINR(gClose)}</td>
-  </tr>`;
+  // Update Top 5 KPI Boxes
+  document.getElementById("kpiCCBadge").innerText = `${creditCards.length} Cards`;
+  document.getElementById("kpiCCVal").innerText = fmtINR(ccDue);
+  document.getElementById("kpiCCSub").innerText = `Paid: ${fmtINR(ccPaid)} • Billed: ${fmtINR(ccBilled)}`;
 
-  lBody.innerHTML = lHtml;
+  document.getElementById("kpiLoanBadge").innerText = `${termLoans.length} Facilities`;
+  document.getElementById("kpiLoanVal").innerText = fmtINR(loanDue);
+  document.getElementById("kpiLoanSub").innerText = `Paid: ${fmtINR(loanPaid)} • Billed: ${fmtINR(loanBilled)}`;
+
+  document.getElementById("kpiSubBadge").innerText = `${subs.length} Items`;
+  document.getElementById("kpiSubVal").innerText = fmtINR(subDue);
+  document.getElementById("kpiSubSub").innerText = `Paid: ${fmtINR(subPaid)} • Billed: ${fmtINR(subBilled)}`;
+
+  document.getElementById("kpiTotDue").innerText = fmtINR(totDue);
+  document.getElementById("kpiTotSub").innerText = `Opening: ${fmtINR(totOpen)} • Paid: ${fmtINR(totPaid)}`;
+
+  document.getElementById("kpiBankVal").innerText = fmtINR(totBank);
+  document.getElementById("kpiBankSub").innerText = `Net Position: ${fmtINR(netPos)}`;
+
+  // 1. RENDER CREDIT CARDS
+  document.getElementById("ccSecBadge").innerText = `${creditCards.length} Cards`;
+  document.getElementById("ccGrid").innerHTML = creditCards.map(c => {
+    const low = c.name.toLowerCase();
+    const grad = low.includes("hdfc") ? "grad-blue" : (low.includes("idfc") ? "grad-red" : (low.includes("slice") ? "grad-purple" : "grad-teal"));
+    const statusTag = c.closing > 0 ? `<span class="tag t-amber">DUE</span>` : `<span class="tag t-emerald">CLEARED</span>`;
+    const rName = (c.raw_name || c.name).replace(/'/g, "'");
+    return `<div class="cc-card ${grad}" onclick="openDrawer('${rName}', '${c.name.replace(/'/g, "'")}', 'Credit Card')">
+      <div class="card-row-top">
+        <div>
+          <div class="card-issuer">CREDIT CARD</div>
+          <div class="card-title">${c.name}</div>
+        </div>
+        ${statusTag}
+      </div>
+      <div class="inner-box">
+        <div class="kv-line"><span>Opening Balance</span><strong>${fmtINR(c.opening)}</strong></div>
+        <div class="kv-line"><span>Paid This Month (Dr)</span><strong style="color:#34d399;">${fmtINR(c.debit_paid)}</strong></div>
+        <div class="kv-line"><span>Billed This Month (Cr)</span><strong>${fmtINR(c.credit_billed)}</strong></div>
+        <div class="kv-divider"></div>
+        <div class="kv-line"><span style="color:#fff;font-weight:600;">Closing Due</span><strong style="font-size:16px;color:${c.closing > 0 ? '#fbbf24' : '#34d399'};">${fmtINR(c.closing)}</strong></div>
+      </div>
+      <button class="card-footer-btn">View Card Statement →</button>
+    </div>`;
+  }).join("") || `<p style="color:var(--muted);font-size:13px;">No credit cards found.</p>`;
+
+  // 2. RENDER LOANS & LIABILITIES
+  document.getElementById("loanSecBadge").innerText = `${termLoans.length} Facilities`;
+  document.getElementById("loansGrid").innerHTML = termLoans.map(l => {
+    const rName = (l.raw_name || l.name).replace(/'/g, "'");
+    const base = Math.max(l.opening + l.credit_billed, l.closing, 1);
+    const paidPct = Math.min(100, Math.round((l.debit_paid / base) * 100));
+    return `<div class="dark-card" onclick="openDrawer('${rName}', '${l.name.replace(/'/g, "'")}', '${l.loan_type}')">
+      <div class="card-row-top">
+        <div>
+          <div class="card-issuer">${l.loan_type}</div>
+          <div class="card-title">${l.name}</div>
+        </div>
+        <span class="tag ${l.closing > 0 ? 't-purple' : 't-emerald'}">${l.closing > 0 ? 'ACTIVE' : 'SETTLED'}</span>
+      </div>
+      <div class="inner-box">
+        <div class="kv-line"><span>Opening Principal</span><strong>${fmtINR(l.opening)}</strong></div>
+        <div class="kv-line"><span>Repaid (Debit)</span><strong style="color:var(--emerald);">${fmtINR(l.debit_paid)}</strong></div>
+        <div class="kv-line"><span>Added / Billed (Credit)</span><strong>${fmtINR(l.credit_billed)}</strong></div>
+        <div class="kv-divider"></div>
+        <div class="kv-line"><span style="color:#fff;font-weight:600;">Outstanding Due</span><strong style="font-size:16px;color:${l.closing > 0 ? '#c084fc' : '#34d399'};">${fmtINR(l.closing)}</strong></div>
+      </div>
+      <div class="prog-track"><div class="prog-fill" style="width:${paidPct}%"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);">
+        <span>Monthly Clearance: ${paidPct}%</span><span>Click for vouchers</span>
+      </div>
+    </div>`;
+  }).join("") || `<p style="color:var(--muted);font-size:13px;">No loans found.</p>`;
+
+  // 3. RENDER SUBSCRIPTIONS
+  document.getElementById("subSecBadge").innerText = `${subs.length} Commitments`;
+  document.getElementById("subsGrid").innerHTML = subs.map(s => {
+    const rName = (s.raw_name || s.name).replace(/'/g, "'");
+    return `<div class="dark-card" onclick="openDrawer('${rName}', '${s.name.replace(/'/g, "'")}', 'Subscription')">
+      <div class="card-row-top">
+        <div>
+          <div class="card-issuer">SUBSCRIPTION / PAYABLE</div>
+          <div class="card-title">${s.name}</div>
+        </div>
+        <span class="tag t-pink">${s.closing > 0 ? 'DUE' : 'PAID'}</span>
+      </div>
+      <div class="inner-box" style="margin-bottom:0;">
+        <div class="kv-line"><span>Opening</span><strong>${fmtINR(s.opening)}</strong></div>
+        <div class="kv-line"><span>Paid (Debit)</span><strong style="color:var(--emerald);">${fmtINR(s.debit_paid)}</strong></div>
+        <div class="kv-line"><span>Billed (Credit)</span><strong>${fmtINR(s.credit_billed)}</strong></div>
+        <div class="kv-divider"></div>
+        <div class="kv-line"><span style="color:#fff;">Closing Payable</span><strong style="font-size:15px;color:var(--pink);">${fmtINR(s.closing)}</strong></div>
+      </div>
+    </div>`;
+  }).join("") || `<p style="color:var(--muted);font-size:13px;">No subscriptions found.</p>`;
+
+  // 4. RENDER BANKS
+  const visibleBanks = showZeroBanks ? banks : banks.filter(b => Math.abs(b.opening) > 0.01 || Math.abs(b.inflow) > 0.01 || Math.abs(b.outflow) > 0.01 || Math.abs(b.closing) > 0.01);
+  document.getElementById("bankSecBadge").innerText = `${visibleBanks.length} / ${banks.length} Accounts`;
+  document.getElementById("banksGrid").innerHTML = visibleBanks.map(b => {
+    const rName = (b.raw_name || b.name).replace(/'/g, "'");
+    return `<div class="dark-card" onclick="openDrawer('${rName}', '${b.name.replace(/'/g, "'")}', '${b.category}')">
+      <div class="card-row-top">
+        <div>
+          <div class="card-issuer">${b.category} ${b.ifsc ? '• ' + b.ifsc : ''}</div>
+          <div class="card-title">${b.name}</div>
+        </div>
+        <span class="tag ${b.closing >= 0 ? 't-emerald' : 't-red'}">${b.closing >= 0 ? 'ACTIVE' : 'OD'}</span>
+      </div>
+      <div class="inner-box" style="margin-bottom:0;">
+        <div class="kv-line"><span>Month Opening</span><strong>${fmtINR(b.opening)}</strong></div>
+        <div class="kv-line"><span>Receipts / Inflow</span><strong style="color:var(--emerald);">+${fmtINR(b.inflow)}</strong></div>
+        <div class="kv-line"><span>Payments / Outflow</span><strong style="color:var(--red);">-${fmtINR(b.outflow)}</strong></div>
+        <div class="kv-divider"></div>
+        <div class="kv-line"><span style="color:#fff;">Closing Balance</span><strong style="font-size:16px;color:${b.closing >= 0 ? 'var(--emerald)' : 'var(--red)'};">${fmtINR(b.closing)}</strong></div>
+      </div>
+    </div>`;
+  }).join("");
+
+  renderCharts(ccDue, loanDue, subDue, mList);
 }
 
-async function openLedgerDrawer(lookupKey, displayTitle, subtitle) {
-  document.getElementById("drawerTitle").innerText = displayTitle;
+function renderCharts(ccDue, loanDue, subDue, mList) {
+  // Donut Chart SVG
+  const vals = [
+    { label: "Credit Cards", val: Math.max(ccDue, 0), color: "#f59e0b" },
+    { label: "Personal & Term Loans", val: Math.max(loanDue, 0), color: "#a855f7" },
+    { label: "Subscriptions & Bills", val: Math.max(subDue, 0), color: "#ec4899" }
+  ];
+  const total = Math.max(vals.reduce((a, b) => a + b.val, 0), 1);
+  let cumulative = 0;
+  const radius = 64, circ = 2 * Math.PI * radius;
+
+  const circles = vals.map(v => {
+    const pct = v.val / total;
+    const dash = `${pct * circ} ${circ}`;
+    const offset = -cumulative * circ;
+    cumulative += pct;
+    return `<circle r="${radius}" cx="85" cy="85" fill="transparent" stroke="${v.color}" stroke-width="22" stroke-dasharray="${dash}" stroke-dashoffset="${offset}" transform="rotate(-90 85 85)"/>`;
+  }).join("");
+
+  const legend = vals.map(v => `
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:10px;font-size:12.5px;">
+      <span style="display:flex;align-items:center;gap:8px;"><span style="width:10px;height:10px;border-radius:3px;background:${v.color};display:inline-block;"></span>${v.label}</span>
+      <strong>${fmtINR(v.val)}</strong>
+    </div>
+  `).join("");
+
+  document.getElementById("donutContainer").innerHTML = `
+    <svg width="170" height="170" viewBox="0 0 170 170">${circles}</svg>
+    <div style="flex:1;min-width:190px;">${legend}</div>
+  `;
+
+  // Month-Wise Bar Chart SVG across FY
+  const points = mList.map(m => {
+    const s = (rootData.months[m.key] || {}).summary || {};
+    return { short: m.short, key: m.key, due: Math.max(s.total_loans || 0, 0), paid: Math.max(s.total_paid || 0, 0) };
+  });
+  const maxVal = Math.max(...points.map(p => Math.max(p.due, p.paid)), 1000);
+  const w = 680, h = 190, barW = 24;
+
+  const bars = points.map((p, idx) => {
+    const x = 35 + idx * 54;
+    const dueH = Math.round((p.due / maxVal) * 130);
+    const paidH = Math.round((p.paid / maxVal) * 130);
+    const isSel = p.key === selectedMonthKey;
+    return `
+      <g style="cursor:pointer;" onclick="selectMonth('${p.key}')">
+        <rect x="${x}" y="${150 - dueH}" width="${barW}" height="${dueH}" rx="4" fill="${isSel ? '#f59e0b' : '#3b82f6'}" opacity="${isSel ? '1' : '0.65'}"/>
+        <rect x="${x + 6}" y="${150 - paidH}" width="12" height="${paidH}" rx="3" fill="#10b981"/>
+        <text x="${x + 12}" y="172" fill="${isSel ? '#fff' : '#8b9bb4'}" font-size="11" font-weight="${isSel ? '700' : '500'}" text-anchor="middle">${p.short}</text>
+      </g>
+    `;
+  }).join("");
+
+  document.getElementById("timelineContainer").innerHTML = `
+    <svg width="100%" viewBox="0 0 ${w} ${h}" style="min-width:560px;">
+      <line x1="25" y1="150" x2="${w - 15}" y2="150" stroke="#1e2942" stroke-width="1"/>
+      ${bars}
+    </svg>
+    <div style="display:flex;gap:18px;font-size:11.5px;color:var(--muted);margin-top:4px;">
+      <span><span style="display:inline-block;width:10px;height:10px;background:#3b82f6;border-radius:2px;margin-right:6px;"></span>Monthly Closing Due (Active Month Highlighted Gold)</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:#10b981;border-radius:2px;margin-right:6px;"></span>Repaid (Debit)</span>
+    </div>
+  `;
+}
+
+async function openDrawer(lookupName, title, subtitle) {
+  document.getElementById("drawerTitle").innerText = title;
   document.getElementById("drawerSub").innerText = subtitle + " • Loading vouchers...";
-  document.getElementById("drawerBody").innerHTML = `<tr><td colspan="4" class="empty">Fetching transactions...</td></tr>`;
+  document.getElementById("drawerBody").innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:24px;">Fetching transactions...</td></tr>`;
   document.getElementById("drawerBackdrop").classList.add("open");
 
   try {
     const isCloud = !location.hostname.includes("127.0.0.1") && !location.hostname.includes("localhost");
     let data = { txns: [] };
-    if (isCloud && cachedData && cachedData.ledger_txns) {
-      data.txns = cachedData.ledger_txns[lookupKey] || cachedData.ledger_txns[displayTitle] || [];
+    if (isCloud && rootData && rootData.ledger_txns) {
+      data.txns = rootData.ledger_txns[lookupName] || rootData.ledger_txns[title] || [];
     } else {
-      const res = await fetch("/api/ledger-txns?name=" + encodeURIComponent(lookupKey));
+      const res = await fetch("/api/ledger-txns?name=" + encodeURIComponent(lookupName));
       data = await res.json();
     }
-    document.getElementById("drawerSub").innerText = subtitle + ` • Showing ${data.txns.length} recent vouchers`;
+    document.getElementById("drawerSub").innerText = subtitle + ` • ${data.txns.length} recent vouchers`;
     if (!data.txns.length) {
-      document.getElementById("drawerBody").innerHTML = `<tr><td colspan="4" class="empty">No vouchers recorded in current period.</td></tr>`;
+      document.getElementById("drawerBody").innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:24px;">No vouchers recorded.</td></tr>`;
       return;
     }
     document.getElementById("drawerBody").innerHTML = data.txns.map(t => `
       <tr>
         <td style="white-space:nowrap;color:var(--muted);">${t.date}</td>
-        <td><div class="name-main">${t.particulars}</div><div class="name-sub">${t.vch_type}</div></td>
-        <td class="num t-green">${t.debit > 0 ? fmtINR(t.debit) : "-"}</td>
-        <td class="num t-red">${t.credit > 0 ? fmtINR(t.credit) : "-"}</td>
+        <td><div style="font-weight:600;">${t.particulars}</div><div style="font-size:11px;color:var(--muted);">${t.vch_type}</div></td>
+        <td class="num" style="color:var(--emerald);">${t.debit > 0 ? fmtINR(t.debit) : "-"}</td>
+        <td class="num" style="color:var(--red);">${t.credit > 0 ? fmtINR(t.credit) : "-"}</td>
       </tr>
     `).join("");
   } catch (e) {
-    document.getElementById("drawerBody").innerHTML = `<tr><td colspan="4" class="empty">Unable to load vouchers.</td></tr>`;
+    document.getElementById("drawerBody").innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:24px;">Unable to fetch vouchers.</td></tr>`;
   }
 }
 
-async function fetchTreasury() {
+async function fetchData() {
   try {
     const isCloud = !location.hostname.includes("127.0.0.1") && !location.hostname.includes("localhost");
     const res = await fetch(isCloud ? "./data.json?t=" + Date.now() : "/api/live-treasury");
     const data = await res.json();
-    const badge = document.getElementById("liveBadge");
     if (data.connected) {
-      cachedData = data;
-      localStorage.setItem("tally_treasury_cache", JSON.stringify(data));
-      badge.classList.remove("off");
-      document.getElementById("liveText").innerText = isCloud ? "CLOUD SYNCED" : "CLOUD SNAPSHOT • Auto-Synced";
-      document.getElementById("syncTime").innerText = `Last Synced from TallyPrime: ${data.timestamp}`;
-      renderAll(data);
-    } else {
-      badge.classList.add("off");
-      document.getElementById("liveText").innerText = "Tally Offline";
+      rootData = data;
+      localStorage.setItem("tbt_monthwise_cache", JSON.stringify(data));
+      document.getElementById("syncStatusText").innerText = isCloud ? `Synced • ${data.timestamp}` : `LIVE • ${data.timestamp}`;
+      renderDashboard();
     }
-  } catch (err) {
-    document.getElementById("liveBadge").classList.add("off");
-    document.getElementById("liveText").innerText = "Offline";
-  }
+  } catch (e) {}
 }
 
-const saved = localStorage.getItem("tally_treasury_cache");
+const saved = localStorage.getItem("tbt_monthwise_cache");
 if (saved) {
-  try { cachedData = JSON.parse(saved); renderAll(cachedData); } catch (e) {}
+  try { rootData = JSON.parse(saved); renderDashboard(); } catch (e) {}
 }
-fetchTreasury();
-setInterval(fetchTreasury, 5000);
+fetchData();
+setInterval(fetchData, 10000);
 </script>
 </body>
 </html>
