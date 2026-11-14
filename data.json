@@ -1,7 +1,7 @@
 {
   "connected": true,
-  "timestamp": "14-Nov-2026 01:11:17 PM",
-  "default_month": "2026-04",
+  "timestamp": "14-Nov-2026 01:11:37 PM",
+  "default_month": "2026-11",
   "month_list": [
     {
       "key": "2026-04",
@@ -64,8 +64,199 @@
       "label": "Mar 2027"
     }
   ],
-  "months": {},
-  "summary": {},
+  "months": {
+    "2026-04": {
+      "summary": {
+        "total_liquidity": 0,
+        "total_bank": 0,
+        "total_cash": 0,
+        "total_loans": 0,
+        "total_paid": 0,
+        "total_billed": 0,
+        "net_position": 0,
+        "bank_count": 0,
+        "loan_count": 0
+      },
+      "banks": [],
+      "loans": []
+    },
+    "2026-05": {
+      "summary": {
+        "total_liquidity": 0,
+        "total_bank": 0,
+        "total_cash": 0,
+        "total_loans": 0,
+        "total_paid": 0,
+        "total_billed": 0,
+        "net_position": 0,
+        "bank_count": 0,
+        "loan_count": 0
+      },
+      "banks": [],
+      "loans": []
+    },
+    "2026-06": {
+      "summary": {
+        "total_liquidity": 0,
+        "total_bank": 0,
+        "total_cash": 0,
+        "total_loans": 0,
+        "total_paid": 0,
+        "total_billed": 0,
+        "net_position": 0,
+        "bank_count": 0,
+        "loan_count": 0
+      },
+      "banks": [],
+      "loans": []
+    },
+    "2026-07": {
+      "summary": {
+        "total_liquidity": 0,
+        "total_bank": 0,
+        "total_cash": 0,
+        "total_loans": 0,
+        "total_paid": 0,
+        "total_billed": 0,
+        "net_position": 0,
+        "bank_count": 0,
+        "loan_count": 0
+      },
+      "banks": [],
+      "loans": []
+    },
+    "2026-08": {
+      "summary": {
+        "total_liquidity": 0,
+        "total_bank": 0,
+        "total_cash": 0,
+        "total_loans": 0,
+        "total_paid": 0,
+        "total_billed": 0,
+        "net_position": 0,
+        "bank_count": 0,
+        "loan_count": 0
+      },
+      "banks": [],
+      "loans": []
+    },
+    "2026-09": {
+      "summary": {
+        "total_liquidity": 0,
+        "total_bank": 0,
+        "total_cash": 0,
+        "total_loans": 0,
+        "total_paid": 0,
+        "total_billed": 0,
+        "net_position": 0,
+        "bank_count": 0,
+        "loan_count": 0
+      },
+      "banks": [],
+      "loans": []
+    },
+    "2026-10": {
+      "summary": {
+        "total_liquidity": 0,
+        "total_bank": 0,
+        "total_cash": 0,
+        "total_loans": 0,
+        "total_paid": 0,
+        "total_billed": 0,
+        "net_position": 0,
+        "bank_count": 0,
+        "loan_count": 0
+      },
+      "banks": [],
+      "loans": []
+    },
+    "2026-11": {
+      "summary": {
+        "total_liquidity": 0,
+        "total_bank": 0,
+        "total_cash": 0,
+        "total_loans": 0,
+        "total_paid": 0,
+        "total_billed": 0,
+        "net_position": 0,
+        "bank_count": 0,
+        "loan_count": 0
+      },
+      "banks": [],
+      "loans": []
+    },
+    "2026-12": {
+      "summary": {
+        "total_liquidity": 0,
+        "total_bank": 0,
+        "total_cash": 0,
+        "total_loans": 0,
+        "total_paid": 0,
+        "total_billed": 0,
+        "net_position": 0,
+        "bank_count": 0,
+        "loan_count": 0
+      },
+      "banks": [],
+      "loans": []
+    },
+    "2027-01": {
+      "summary": {
+        "total_liquidity": 0,
+        "total_bank": 0,
+        "total_cash": 0,
+        "total_loans": 0,
+        "total_paid": 0,
+        "total_billed": 0,
+        "net_position": 0,
+        "bank_count": 0,
+        "loan_count": 0
+      },
+      "banks": [],
+      "loans": []
+    },
+    "2027-02": {
+      "summary": {
+        "total_liquidity": 0,
+        "total_bank": 0,
+        "total_cash": 0,
+        "total_loans": 0,
+        "total_paid": 0,
+        "total_billed": 0,
+        "net_position": 0,
+        "bank_count": 0,
+        "loan_count": 0
+      },
+      "banks": [],
+      "loans": []
+    },
+    "2027-03": {
+      "summary": {
+        "total_liquidity": 0,
+        "total_bank": 0,
+        "total_cash": 0,
+        "total_loans": 0,
+        "total_paid": 0,
+        "total_billed": 0,
+        "net_position": 0,
+        "bank_count": 0,
+        "loan_count": 0
+      },
+      "banks": [],
+      "loans": []
+    }
+  },
+  "summary": {
+    "total_liquidity": 0,
+    "total_bank": 0,
+    "total_cash": 0,
+    "total_loans": 0,
+    "total_paid": 0,
+    "total_billed": 0,
+    "net_position": 0,
+    "bank_count": 0,
+    "loan_count": 0
+  },
   "banks": [],
   "loans": [],
   "ledger_txns": {}
