@@ -634,7 +634,7 @@ if (saved) {
   try { rootData = JSON.parse(saved); renderDashboard(); } catch (e) {}
 }
 fetchData();
-setInterval(fetchData, 10000);
+// Auto-polling disabled to keep Tally fast; use Refresh button
 </script>
 </body>
 </html>
